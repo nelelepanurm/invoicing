@@ -1,0 +1,85 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="Siim">
+        <createTable tableName="author">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="text"/>
+        </createTable>
+
+        <createTable tableName="book">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="name" type="text"/>
+            <column name="author_id" type="int">
+                <constraints foreignKeyName="fk_book_author" references="author(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2021-11-23 add account table" author="Nele Lepanurm">
+        <createTable tableName="account">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="account_number" type="text"/>
+            <column name="account_holder" type="text"/>
+            <column name="balance" type="text"/>
+        </createTable>
+        <createTable tableName="account1">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="account_number" type="text"/>
+            <column name="balance" type="int"/>
+            <column name="invest" type="text"/>
+        </createTable>
+        <createTable tableName="employee">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="text"/>
+            <column name="last_name" type="int"/>
+            <column name="position" type="text"/>
+            <column name="address" type="text"/>
+        </createTable>
+
+    </changeSet>
+    <changeSet id="2021-11-23 add lesson tables" author="Nele Lepanurm">
+        <createTable tableName="client">
+            <column name="client_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="account_holder" type="text"/>
+        </createTable>
+        <addColumn tableName="account">
+            <column name="client_id" type="int">
+                <constraints foreignKeyName="fk_account_client" references="client(client_id)"/>
+            </column>
+        </addColumn>
+        <dropColumn tableName="account">
+            <column name="account_holder" type="text"/>
+        </dropColumn>
+    </changeSet>
+
+
+    <changeSet id="2021-11-28 add transaction table" author="Nele Lepanurm">
+        <createTable tableName="transactionhistory">
+            <column name="transaction_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="account_number" type="text"/>
+            <column name="transfer_amount" type="int"/>
+            <column name="deposit_amount" type="int"/>
+            <column name="balance" type="int"/>
+
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
