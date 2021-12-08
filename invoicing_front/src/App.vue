@@ -2,10 +2,10 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/">Home2</router-link> |
-      <router-link to="/">Invoices</router-link> |
-      <router-link to="/">Clients</router-link> |
-      <router-link to="/">Company Profile</router-link> |
+      <router-link to="/home2">Home2</router-link> |
+      <router-link to="/invoices">Invoices</router-link> |
+      <router-link to="/clients">Clients</router-link> |
+      <router-link to="/companyProfile">Company Profile</router-link> |
     </div>
     <router-view/>
   </div>
@@ -32,4 +32,38 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.pageView {
+  float: left;
+  text-align: left;
+  padding-left: 50px;
+}
+
+.myTableHeader {
+  padding: 10px;
+  background-color: darkgrey;
+}
+
+.myButtonDiv {
+  background-color: #2E7A58FF;
+  color: aliceblue;
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  font-size: x-large;
+}
+
+.myButtonA {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.mySearchDiv {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  font-size: x-large;
+}
+
 </style>
