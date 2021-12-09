@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="mainTABLine" id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/home2">Home2</router-link> |
@@ -17,7 +17,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #171617FF;
 }
 
 #nav {
@@ -64,6 +64,12 @@
   height: 40px;
   text-align: center;
   font-size: x-large;
+}
+
+.mainTABLine {
+  background-color: darkgray;
+  margin-top: 30px;
+
 }
 
 </style>
