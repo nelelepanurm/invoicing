@@ -1,75 +1,60 @@
 <template>
-  <div class="mainTABLine" id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/home2">Home2</router-link> |
-      <router-link to="/invoices">Invoices</router-link> |
-      <router-link to="/clients">Clients</router-link> |
-      <router-link to="/companyProfile">Company Profile</router-link> |
-    </div>
-    <router-view/>
-  </div>
+  <v-app id="inspire">
+    <v-navigation-drawer
+        v-model="drawer"
+        app
+
+        class="deep-purple accent-4"
+        dark
+        permanent
+    >
+      <v-list>
+        <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            link
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn block>
+            Logout
+          </v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Invoicing</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <!--  -->
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #171617FF;
+<script>
+export default {
+  data: () => ({
+    drawer: null,
+    items: [
+      { title: 'Home', icon: 'mdi-view-dashboard' },
+      { title: 'Invoices', icon: 'mdi-account-box' },
+      { title: 'Clients', icon: 'mdi-gavel' },
+      { title: 'My Profile', icon: 'mdi-gavel' },
+    ],
+  }),
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-.pageView {
-  float: left;
-  text-align: left;
-  padding-left: 50px;
-}
-
-.myTableHeader {
-  padding: 10px;
-  background-color: darkgrey;
-}
-
-.myButtonDiv {
-  background-color: #2E7A58FF;
-  color: aliceblue;
-  width: 200px;
-  height: 40px;
-  text-align: center;
-  font-size: x-large;
-}
-
-.myButtonA {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-}
-
-.mySearchDiv {
-  width: 200px;
-  height: 40px;
-  text-align: center;
-  font-size: x-large;
-}
-
-.mainTABLine {
-  background-color: darkgray;
-  margin-top: 30px;
-
-}
-
-</style>
+</script>
