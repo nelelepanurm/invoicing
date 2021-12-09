@@ -2,8 +2,10 @@
   <div class="pageView">
     <h1>Invoices</h1>
     <div>
-    <div class = "myButtonDiv"><a class="myButtonA" href="javascript: createNewInvoice()" >New Invoice</a> </div>
+    <div class ="myButtonDiv"><a class="myButtonA" href="javascript: createNewInvoice()" >New Invoice</a> </div>
     <div class ="mySearchDiv" > <input placeholder="search"></div>
+
+      <button> SEND TO EMAIL </button>
     </div>
     <br><br>
     <table border="1">
@@ -13,7 +15,6 @@
         <th class="myTableHeader" v-on:click="orderBy('total_sum')">SUM WITH VAT</th>
         <th class="myTableHeader" v-on:click="orderBy('invoice_date')">INVOICE DATE</th>
         <th class="myTableHeader" v-on:click="orderBy('payment_due_date')">DUE DATE</th>
-
       </tr>
       <tr v-for="invoice in invoices">
         <td>{{ invoice.cliendId }}</td>
