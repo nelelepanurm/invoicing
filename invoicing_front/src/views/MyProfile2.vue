@@ -6,7 +6,7 @@
       <tr>
         <th>
           <p class="text-md-left" >
-            USER PROFILE REGISTER PAGE</p>
+            USER PROFILE</p>
         </th>
       </tr>
       <tr>
@@ -15,7 +15,7 @@
       </tr>
       <tr>
         <td>Password</td>
-        <td><input v-model:placeholder="password" placeholder="password"></td>
+        <td class="mytdStyle">rida 1 tulp2</td>
       </tr>
       <tr>
         <td>Password again</td>
