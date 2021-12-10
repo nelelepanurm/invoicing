@@ -10,7 +10,7 @@ public class ClientDto {
     private String eMail;
     private String phoneNr;
     private String contactPerson;
-    private int clientId;
+    private int id;
 
     public String getClientName() {
         return clientName;
@@ -84,12 +84,12 @@ public class ClientDto {
         this.contactPerson = contactPerson;
     }
 
-    public int getClientId() {
-        return clientId;
+    public int getId() {
+        return id;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

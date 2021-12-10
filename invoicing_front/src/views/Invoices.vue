@@ -5,6 +5,7 @@
       <div>
         <v-row >
             <v-btn class="pa-3" @click="createNewInvoice()">NEW INVOICE</v-btn>
+
       <div>
         <v-col
             cols="12"
