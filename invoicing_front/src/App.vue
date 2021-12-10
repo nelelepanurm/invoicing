@@ -3,15 +3,12 @@
     <v-navigation-drawer
         v-model="drawer"
         app
-
-        class="deep-purple accent-4"
-        dark
-        permanent
     >
       <v-list>
         <v-list-item
             v-for="item in items"
             :key="item.title"
+            :to="item.to"
             link
         >
           <v-list-item-icon>
@@ -33,14 +30,18 @@
       </template>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar
+        app
+        color="#A5D6A7"
+        dark
+    >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Invoicing</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <!--  -->
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
@@ -50,10 +51,10 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { title: 'Home', icon: 'mdi-view-dashboard' },
-      { title: 'Invoices', icon: 'mdi-account-box' },
-      { title: 'Clients', icon: 'mdi-gavel' },
-      { title: 'My Profile', icon: 'mdi-gavel' },
+      {title: 'Home', icon: 'mdi-home', to: '/'},
+      {title: 'Invoices', icon: 'mdi-file-document-edit-outline', to: '/Invoices'},
+      {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
+      {title: 'My Profile', icon: 'mdi-account-cog-outline', to: '/MyProfile'},
     ],
   }),
 }

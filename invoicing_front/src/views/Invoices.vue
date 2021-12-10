@@ -1,13 +1,28 @@
 <template>
-  <div class="pageView">
-    <h1>Invoices</h1>
+  <div class="home pa-10">
+    <h1>Invoices</h1><br><br><br>
     <div>
-    <div class ="myButtonDiv"><a class="myButtonA" href="javascript: createNewInvoice()" >New Invoice</a> </div>
-    <div class ="mySearchDiv" > <input placeholder="search"></div>
+      <div>
+        <v-row >
+            <v-btn class="pa-3" @click="createNewInvoice()">NEW INVOICE</v-btn>
+      <div>
+        <v-col
+            cols="12"
+            md="12">
+          <v-text-field
+              class="pa-3"
+              label="search"
+              placeholder="Placeholder"
+              solo >
+          </v-text-field>
+        </v-col>
+      </div>
+        </v-row>
+      </div>
 
-      <button> SEND TO EMAIL </button>
+      <button> SEND TO EMAIL button needed when invoice is opened</button>
     </div>
-    <br><br>
+    <br>
     <table border="1">
       <tr>
         <th class="myTableHeader"><a v-on:click="orderBy('client_name')">CLIENT</a></th>

@@ -1,5 +1,5 @@
 <template>
-  <div class="pageView">
+  <div class="home pa-10">
     <h1>Overview</h1>
     <p>
       You are now logged in!"<br>

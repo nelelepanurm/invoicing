@@ -1,18 +1,28 @@
 <template>
-  <div class="pageView">
-    <h1>Clients</h1>
-
+  <div class="home pa-10">
+    <h1>Clients</h1><br><br><br>
     <div>
+      <div>
+        <v-row>
+      <v-btn class = "myButtonDiv" v-on:click="newClient()">NEW CLIENT</v-btn>
+          <div>
+            <v-col
+            cols="12"
+            md="12">
+              <v-text-field
+                  class="pa-3"
+                  label="search"
+                  placeholder="Placeholder"
+                  solo >
+              </v-text-field>
+            </v-col>
 
-      <button class = "myButtonDiv" v-on:click="newClient()">NEW CLIENT</button>
-      <input class = "mySearchDiv" v-model="clientName" placeholder="search"/>
-
-
-
-
-
+          </div>
+        </v-row>
+      </div>
     </div>
-    <br><br>
+
+
     <table border="1">
       <tr>
         <th class="myTableHeader"><a v-on:click="orderBy('client_name')">NAME</a></th>
