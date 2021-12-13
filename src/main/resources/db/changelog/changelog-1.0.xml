@@ -96,6 +96,41 @@
             <column name="line_sum" type="float" />
         </createTable>
     </changeSet>
+    <changeSet id="10-12-21 float to double" author="Nadja Horeva">
+        <dropColumn tableName="vat_type">
+            <column name="vat_percent"/>
+        </dropColumn>
+        <addColumn tableName="vat_type">
+            <column name="vat_percent" type="double"/>
+        </addColumn>
+        <dropColumn tableName="invoice_row">
+            <column name="unit_price"/>
+            <column name="quantity"/>
+            <column name="net_sum"/>
+            <column name="vat_amount"/>
+            <column name="line_sum"/>
+        </dropColumn>
+        <addColumn tableName="invoice_row">
+            <column name="unit_price" type="double"/>
+            <column name="quantity" type="double"/>
+            <column name="net_sum" type="double"/>
+            <column name="vat_amount" type="double"/>
+            <column name="line_sum" type="double"/>
+        </addColumn>
+        <dropColumn tableName="invoice">
+            <column name="delay_penalty"/>
+            <column name="total_net_sum"/>
+            <column name="total_vat_sum"/>
+            <column name="total_sum"/>
+        </dropColumn>
+        <addColumn tableName="invoice">
+            <column name="delay_penalty" type="double"/>
+            <column name="total_net_sum" type="double"/>
+            <column name="total_vat_sum" type="double"/>
+            <column name="total_sum" type="double"/>
+        </addColumn>
+    </changeSet>
+
 
 
 </databaseChangeLog>

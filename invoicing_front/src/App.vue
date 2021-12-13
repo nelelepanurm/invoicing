@@ -41,7 +41,18 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <div v-if="token">
+        <router-view/>
+        <v-btn v-on:click="logOut">Log out</v-btn>
+      </div>
+      <div v-if="!token">
+        <v-container>
+          Kasutajanimi: <input v-model="userTable.userName">
+          Parool: <input v-model="userTable.password">
+          <v-btn v-on:click="login">Login</v-btn>
+          <v-btn v-on:click="getData">Get data</v-btn>
+        </v-container>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -56,6 +67,32 @@ export default {
       {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
       {title: 'My Profile', icon: 'mdi-account-cog-outline', to: '/MyProfile'},
     ],
+    token: ''
   }),
+  methods: {
+    login() {
+      this.$http.post('api/protect/login', this.user)
+          .then(result => {
+            this.token = result.data
+            localStorage.setItem('user-token', this.token)
+            this.$http.defaults.headers.common['Authorization'] = "Bearer " + this.token
+          });
+    },
+    getData() {
+      this.$http.get('api/protected')
+          .then(result => {
+            alert('päring õnnestus' + result.data)
+          })
+          .catch(result => {
+            alert('juhtus viga')
+          })
+    },
+    logOut() {
+      this.token = ''
+      localStorage.removeItem('user-token')
+      alert("you have been logged out")
+      location.reload()
+    }
+  }
 }
 </script>
