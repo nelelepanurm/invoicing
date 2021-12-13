@@ -32,7 +32,7 @@
 
     <v-app-bar
         app
-        color="#A5D6A7"
+        color=#84ab85
         dark
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -43,8 +43,12 @@
     <v-main>
       <router-view></router-view>
     </v-main>
+
+
   </v-app>
 </template>
+
+
 
 <script>
 export default {
@@ -52,9 +56,11 @@ export default {
     drawer: null,
     items: [
       {title: 'Home', icon: 'mdi-home', to: '/'},
-      {title: 'Invoices', icon: 'mdi-file-document-edit-outline', to: '/Invoices'},
-      {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
       {title: 'My Profile', icon: 'mdi-account-cog-outline', to: '/MyProfile'},
+      {title: 'Invoices', icon: 'mdi-receipt', to: '/Invoices'},
+      {title: 'Create Invoice', icon: 'mdi-file-document-edit-outline', to: '/CreateInvoice'},
+      {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
+      {title: 'VAT Codes', icon: 'mdi-format-list-group', to: '/Vat'},
     ],
   }),
 }

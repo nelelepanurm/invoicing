@@ -10,15 +10,15 @@
         </th>
       </tr>
       <tr>
-        <td>Login name</td>
+        <td>Login name*</td>
         <td><input v-model:placeholder="loginName" placeholder="login name"></td>
       </tr>
       <tr>
-        <td>Password</td>
+        <td>Password*</td>
         <td><input v-model:placeholder="password" placeholder="password"></td>
       </tr>
       <tr>
-        <td>Password again</td>
+        <td>Password again*</td>
         <td><input v-model:placeholder="password" placeholder="password"></td>
       </tr>
       <tr></tr>
@@ -30,15 +30,15 @@
         </th>
       </tr>
       <tr>
-        <td>Company name</td>
+        <td>Company name*</td>
         <td><input v-model:placeholder="companyName" placeholder="company name"></td>
       </tr>
       <tr>
-        <td>Register no.</td>
+        <td>Register no.*</td>
         <td><input v-model:placeholder="registerNo" placeholder="registerNo"></td>
       </tr>
       <tr>
-        <td>VAT no.</td>
+        <td>VAT no.*</td>
         <td><input v-model:placeholder="vatNo" placeholder="vatNo"></td>
         <td>Tick box if no VAT<input type="checkbox"></td>
       </tr>
@@ -51,11 +51,11 @@
         </th>
       </tr>
       <tr>
-        <td>Address</td>
+        <td>Address*</td>
         <td><input v-model:placeholder="address" placeholder="address"></td>
       </tr>
       <tr>
-        <td>Country</td>
+        <td>Country*</td>
         <td><input v-model:placeholder="country" placeholder="country"></td>
       </tr>
       <tr>
@@ -63,7 +63,7 @@
         <td><input v-model:placeholder="postCode" placeholder="post code"></td>
       </tr>
       <tr>
-        <td>E-mail</td>
+        <td>E-mail*</td>
         <td><input v-model:placeholder="email" placeholder="email"></td>
       </tr>
       <tr>
@@ -79,15 +79,15 @@
         </th>
       </tr>
       <tr>
-        <td>Bank name </td>
+        <td>Bank name* </td>
         <td><input v-model:placeholder="bankName" placeholder="Bank name"></td>
       </tr>
       <tr>
-        <td>Bank account no.(IBAN) </td>
+        <td>Bank account no.(IBAN) *</td>
         <td><input v-model:placeholder="IBAN" placeholder="IBAN"></td>
       </tr>
       <tr>
-        <td>SWIFT code </td>
+        <td>SWIFT code* </td>
         <td><input v-model:placeholder="SWIFT" placeholder="SWIFT"></td>
       </tr>
       <tr>

@@ -1,6 +1,7 @@
 package com.schoolproject.invoicing;
 
-import exception.ApplicationException;
+import com.schoolproject.invoicing.exception.ApplicationException;
+
 import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
