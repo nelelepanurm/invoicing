@@ -1,25 +1,23 @@
 <template>
   <div class="home pa-10">
     <h1>Invoices</h1><br><br><br>
-    <div>
-      <div>
-        <v-row >
-            <v-btn class="pa-3" @click="createNewInvoice()">NEW INVOICE</v-btn>
 
-      <div>
-        <v-col
-            cols="12"
-            md="12">
+
+    <div>
+      <v-row>
+        <v-col sm="6" md="6">
+          <v-btn @click="createNewInvoice()">NEW INVOICE</v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col sm="6" md="6">
           <v-text-field
-              class="pa-3"
               label="search"
               placeholder="Placeholder"
-              solo >
+              solo>
           </v-text-field>
         </v-col>
-      </div>
-        </v-row>
-      </div>
+      </v-row>
 
       <button> SEND TO EMAIL button needed when invoice is opened</button>
     </div>

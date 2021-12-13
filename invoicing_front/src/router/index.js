@@ -5,6 +5,8 @@ import Clients from '../views/Clients'
 import MyProfile from '../views/MyProfile'
 import Home2 from '../views/Home2'
 import Invoices from '../views/Invoices'
+import CreateInvoice from '../views/CreateInvoice'
+import Vat from '../views/Vat'
 
 Vue.use(VueRouter)
 
@@ -34,7 +36,16 @@ const routes = [
     name: 'Invoices',
     component: Invoices
   },
-
+  {
+    path: '/CreateInvoice',
+    name: 'CreateInvoice',
+    component: CreateInvoice
+  },
+  {
+    path: '/Vat',
+    name: 'Vat',
+    component: Vat
+  },
 ]
 
 const router = new VueRouter({
