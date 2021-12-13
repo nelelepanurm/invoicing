@@ -96,7 +96,20 @@
             <column name="line_sum" type="float" />
         </createTable>
     </changeSet>
-    <changeSet id="10-12-21 float to double" author="Nadja Horeva">
+    <changeSet id="2021-12-13" author="Nele Lepanurm">
+        <createTable tableName="newuser">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+   <changeSet id="10-12-21 float to double" author="Nadja Horeva">
         <dropColumn tableName="vat_type">
             <column name="vat_percent"/>
         </dropColumn>
@@ -130,7 +143,6 @@
             <column name="total_sum" type="double"/>
         </addColumn>
     </changeSet>
-
 
 
 </databaseChangeLog>

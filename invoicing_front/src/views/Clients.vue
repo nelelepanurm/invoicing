@@ -1,25 +1,26 @@
 <template>
   <div class="home pa-10">
     <h1>Clients</h1><br><br><br>
-    <div>
-      <div>
-        <v-row>
-      <v-btn class = "myButtonDiv" v-on:click="newClient()">NEW CLIENT</v-btn>
-          <div>
-            <v-col
-            cols="12"
-            md="12">
-              <v-text-field
-                  class="pa-3"
-                  label="search"
-                  placeholder="Placeholder"
-                  solo >
-              </v-text-field>
-            </v-col>
 
-          </div>
-        </v-row>
-      </div>
+    <div>
+      <v-row>
+        <v-col sm="6" md="6">
+          <v-btn @click="createClient()">NEW CLIENT</v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col sm="6" md="6">
+          <v-text-field
+              label="search"
+              placeholder="Placeholder"
+              solo>
+          </v-text-field>
+        </v-col>
+      </v-row>
+
+
+
+
     </div>
 
 

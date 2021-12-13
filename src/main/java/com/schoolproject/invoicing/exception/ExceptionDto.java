@@ -1,4 +1,4 @@
-package exception;
+package com.schoolproject.invoicing.exception;
 
 public class ExceptionDto {
 
