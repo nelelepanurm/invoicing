@@ -20,4 +20,14 @@ public class CompanyProfileController {
     public String changeCompany(@PathVariable("id") int id, @RequestBody CompanyProfileDTO companyProfile) {
         return companyProfileService.changeCompany(id, companyProfile);
     }
+
+    @GetMapping("api/company/{userName}")
+    public CompanyProfileDTO getCompany(@PathVariable("userName") String userName) {
+        return companyProfileService.getCompany(userName);
+    }
+
+    @GetMapping("api/company/{id}")
+    public CompanyProfileDTO findCompany(@PathVariable("id") Integer id) {
+        return companyProfileService.findCompany(id);
+    }
 }

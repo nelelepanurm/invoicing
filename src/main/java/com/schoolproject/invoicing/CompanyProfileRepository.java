@@ -2,6 +2,7 @@ package com.schoolproject.invoicing;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -83,6 +84,20 @@ public class CompanyProfileRepository {
         paramMap.put("companyName",companyProfile.getCompanyName());
         return jdbcTemplate.update(sql, paramMap);
     }
+    public CompanyProfileDTO getCompany(String userName) {
+        String sql = "SELECT * FROM company_profile WHERE user_name = :userName";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userName", userName);
+        CompanyProfileDTO result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(CompanyProfileDTO.class));
+        return result;
+    }
 
+    public CompanyProfileDTO findCompany (Integer id) {
+        String sql = "SELECT * FROM company_profile WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        CompanyProfileDTO result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(CompanyProfileDTO.class));
+        return result;
+    }
 
 }
