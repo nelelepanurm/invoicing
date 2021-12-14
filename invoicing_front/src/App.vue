@@ -50,17 +50,17 @@
             <v-btn v-on:click="getData">Get data</v-btn>
           </div>
           <br><br>
-          <p class="font-weight-bold"> Don't have an account yet? <br> Register
-            <v-btn @click="registerHere()">HERE</v-btn>
-          </p>
+
+            <p class="font-weight-bold"> Don't have an account yet? <br> Register
+              <v-btn v-on:click="registerHere()">HERE</v-btn>
+            </p>
+
         </div>
       </v-container>
       <div v-if="token">
         <router-view/>
-
       </div>
       <div v-if="!token">
-
       </div>
     </v-main>
 
@@ -81,7 +81,7 @@ export default {
       {title: 'Create Invoice', icon: 'mdi-file-document-edit-outline', to: '/CreateInvoice'},
       {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
       {title: 'VAT Codes', icon: 'mdi-format-list-group', to: '/Vat'},
-      {title: 'My Profile', icon: 'mdi-account-cog-outline', to: '/MyProfile'},
+      {title: 'My Profile2', icon: 'mdi-account-cog-outline', to: '/myProfile2'},
     ],
     token: '',
     newuser: {}
@@ -112,6 +112,10 @@ export default {
       localStorage.removeItem('user-token')
       alert("you have been logged out")
       location.reload()
+    },
+    registerHere: function () {
+      this.token = "fuu"
+      router.push({name: 'MyProfile'})
     }
   },
   mounted() {

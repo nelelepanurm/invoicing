@@ -11,17 +11,8 @@
       </tr>
       <tr>
         <td>Login name*</td>
-        <td><input v-model:placeholder="loginName" placeholder="login name"></td>
+        <td>{{userName}}</td>
       </tr>
-      <tr>
-        <td>Password*</td>
-        <td class="mytdStyle">rida 1 tulp2</td>
-      </tr>
-      <tr>
-        <td>Password again*</td>
-        <td><input v-model:placeholder="password" placeholder="password"></td>
-      </tr>
-      <tr></tr>
       <br>
       <tr>
         <th>
@@ -145,32 +136,32 @@
       <tr></tr>
 
 
-      <tr v-for="profile in profiles">
-        <td>{{ profile.loginName }}</td>
-        <td>{{ profile.password }}</td>
-        <td>{{ profile.passwordAgain }}</td>
-        <td>{{ profile.companyName }}</td>
-        <td>{{ profile.Registerno }}</td>
-        <td>{{ profile.VATno }}</td>
-        <td>{{ profile.Address }}</td>
-        <td>{{ profile.country }}</td>
-        <td>{{ profile.postCode }}</td>
-        <td>{{ profile.eMail }}</td>
-        <td>{{ profile.phone }}</td>
-        <td>{{ profile.bankName1 }}</td>
-        <td>{{ profile.account1 }}</td>
-        <td>{{ profile.swift1 }}</td>
-        <td>{{ profile.bankName2 }}</td>
-        <td>{{ profile.account2 }}</td>
-        <td>{{ profile.swift2 }}</td>
-        <td>{{ profile.bankName3 }}</td>
-        <td>{{ profile.account3 }}</td>
-        <td>{{ profile.swift3 }}</td>
-        <td>{{ profile.emailText }}</td>
-        <td>{{ profile.payment }}</td>
-        <td>{{ profile.delay }}</td>
-        <td>{{ profile.unit }}</td>
-        <td>{{ profile.logo }}</td>
+      <tr>
+        <td>{{ userName }}</td>
+        <td>{{ password }}</td>
+        <td>{{ password }}</td>
+        <td>{{ companyName }}</td>
+        <td>{{ regNr }}</td>
+        <td>{{ vatCode }}</td>
+        <td>{{ address }}</td>
+        <td>{{ country }}</td>
+        <td>{{ postalCode }}</td>
+        <td>{{ eMail }}</td>
+        <td>{{ phoneNr }}</td>
+        <td>{{ bankName1 }}</td>
+        <td>{{ iban1 }}</td>
+        <td>{{ swift1 }}</td>
+        <td>{{ bankName2 }}</td>
+        <td>{{ iban2 }}</td>
+        <td>{{ swift2 }}</td>
+        <td>{{ bankName3 }}</td>
+        <td>{{ iban3 }}</td>
+        <td>{{ swift3 }}</td>
+        <td>{{ emailText }}</td>
+        <td>{{ paymentDeadline }}</td>
+        <td>{{ delayPenalty }}</td>
+        <td>{{ unit }}</td>
+        <td>{{ logoFail }}</td>
 
 
       </tr>
@@ -182,3 +173,53 @@
 
   </div>
 </template>
+
+<script>
+
+export default {
+  data: function () {
+    return {
+      userName: {},
+      newuser: [],
+      password: {},
+      eMail: {},
+      phoneNr: {},
+      address: {},
+      postalCode: {},
+      country: {},
+      regNr: {},
+      vatCode: {},
+      bankName1: {},
+      bankName2: {},
+      bankName3: {},
+      iban1: {},
+      iban2: {},
+      iban3: {},
+      swift1: {},
+      swift2: {},
+      swift3: {},
+      emailText: {},
+      paymentDeadline: {},
+      delayPenalty: {},
+      unit: {},
+      logoFail: {},
+      companyName: {},
+      profile: {}
+    }
+  },
+  methods: {
+    getLoggedInUser: function (){
+      this.$http.get("api/userlogin")
+      .then(response => {
+        console.log(response.data.userName)
+        this.userName = response.data.userName
+      })
+    }
+  },
+  mounted() {
+    let newuser = this.getLoggedInUser(this.$route.params.userName)
+    console.log(newuser);
+  }
+}
+
+</script>

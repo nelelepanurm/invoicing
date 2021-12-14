@@ -36,4 +36,8 @@ public class UserService {
 
         }
     }
+
+    public UserDTO findUserByName (String userName) {
+        return userRepository.findUserByName(userName);
+    }
 }
