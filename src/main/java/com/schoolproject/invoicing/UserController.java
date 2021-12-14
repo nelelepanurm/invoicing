@@ -2,10 +2,10 @@ package com.schoolproject.invoicing;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -28,5 +28,12 @@ public class UserController {
     @GetMapping("api/protected")
     public String testLogin(){
         return "Protected page";
+    }
+
+    @GetMapping("api/userlogin")
+    public UserDTO getLoggedInUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return userService.findUserByName(username);
     }
 }

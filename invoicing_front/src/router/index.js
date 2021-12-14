@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Clients from '../views/Clients'
 import MyProfile from '../views/MyProfile'
+import MyProfile2 from '../views/MyProfile2'
 import Home2 from '../views/Home2'
 import Invoices from '../views/Invoices'
 import CreateInvoice from '../views/CreateInvoice'
@@ -20,6 +21,11 @@ const routes = [
     path: '/myProfile',
     name: 'MyProfile',
     component: MyProfile
+  },
+  {
+    path: '/myProfile2',
+    name: 'MyProfile2',
+    component: MyProfile2
   },
   {
     path: '/home2',
