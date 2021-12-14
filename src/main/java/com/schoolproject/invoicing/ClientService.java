@@ -36,6 +36,17 @@ public class ClientService {
         return "Client " + clientName + " is created.";
 
     }
+
+    public String deleteClient(int id) {
+        clientRepository.deleteClient(id);
+        return "Client is deleted";
+
+    }
+
+    public String changeClient(Integer id, ClientDto client){
+        clientRepository.changeClient(id, client);
+        return "Client is changed";
+    }
 }
 
 

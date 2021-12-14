@@ -6,20 +6,20 @@
           Company Name
         </h4>
         <p>
-          Address<br />
-          Postcode<br />
+          Address <br />
+          Postcode <br />
           Country<br />
           Phone<br />
           E-mail Address<br />
         </p>
         <h6 class="grey py-1 mt-9 pl-2 mr-10">BILL TO</h6>
         <p>
-        Company/Customer Name:<br />
-        Address:<br />
-          Postcode<br />
-          Country<br />
-          Phone<br />
-          E-mail Address<br />
+        Company/Customer Name: <input v-model:placeholder="customername" placeholder="name"><br />
+        Address: <input v-model:placeholder="address" placeholder="address"><br />
+          Postcode: <input v-model:placeholder="postcode" placeholder="postcode"><br />
+          Country: <input v-model:placeholder="country" placeholder="country"><br />
+          Phone: <input v-model:placeholder="phone" placeholder="phone"><br />
+          E-mail Address: <input v-model:placeholder="email" placeholder="e-mail address"><br />
         </p>
 
 
@@ -80,11 +80,29 @@
 
       </v-col>
 
-      <v-col cols="12" sm="2" md="2">
+      <v-col cols="12" sm="1" md="1">
         <v-text-field
             label="Price"
             v-model="price[i]"
             placeholder="Price"
+            dense
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="12" sm="1" md="1">
+        <v-text-field
+            label="VAT Code"
+            v-model="vatCode[i]"
+            placeholder="VAT Code"
+            dense
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="12" sm="1" md="1">
+        <v-text-field
+            label="VAT Sum"
+            v-model="vatSum[i]"
+            placeholder="VAT Sum"
             dense
         ></v-text-field>
       </v-col>
@@ -108,7 +126,7 @@
         ></v-text-field>
       </v-col>
 
-      <v-col cols="12" sm="2" md="2">
+      <v-col cols="12" sm="1" md="1">
         <v-text-field
             label="Total"
             v-model="total[i]"
@@ -124,25 +142,32 @@
 
     </v-row>
     </div>
-    <v-btn @click="addItem" class="mt-5">+ Items</v-btn>
+   <v-btn @click="addItem" class="mt-5">+ Items</v-btn>
+
     <div class ="float-right mt-12">
+
+
       <div class="text--primary font-weight-bold">
-        <span class="float-left mr-4">Sub Total Amount:</span>
+        <span class="float-left mr-4">Net Total EUR:</span>
         <span class="float-right">1000</span>
         <br />
-        <span class="float-left mr-4">Tax Rate:</span>
+        <span class="float-left mr-4">VAT Rate:</span>
         <span class="float-right">18%</span>
         <br />
-        <span class="float-left mr-4">Tax:</span>
+        <span class="float-left mr-4">VAT:</span>
         <span class="float-right">18</span>
         <br />
-        <span class="float-left mr-4">Total:</span>
+        <span class="float-left mr-4">Grand Total EUR:</span>
         <span class="float-right">{{ gtotal }}</span>
         <br />
         <br />
       </div>
     </div>
+
   </v-container>
+
+
+
 
 
 </template>
@@ -157,6 +182,8 @@ export default{
     price:[],
     qty:[],
     total:[],
+    vatCode:[],
+    vatSum:[],
     gtotal:"",
     unit:"",
   }),
@@ -168,6 +195,9 @@ export default{
         price:"",
         qty:"",
         total:"",
+        vatCode:"",
+        vatSum:"",
+        unit:"",
       });
 
     },
