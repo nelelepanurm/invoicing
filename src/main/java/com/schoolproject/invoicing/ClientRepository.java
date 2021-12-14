@@ -1,6 +1,8 @@
 package com.schoolproject.invoicing;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -44,7 +47,7 @@ public class ClientRepository {
     }
 
     public int changeClient(Integer id, @RequestBody ClientDto client) {
-        String sql = "UPDATE client SET client_name = :clientName, reg_nr = :regNr, vat_nr = :vatNr, address = :address, postal_code = :postCode,country = :country,e_mail = :eMail, phone_number = :phoneNr, contact_person = :contactPerson WHERE id = :id";
+        String sql = "UPDATE client SET client_name = :clientName, reg_nr = :regNr, vat_nr = :vatNr, address = :address, postal_code = :postCode,country = :country,e_mail = :eMail, phone_nr = :phoneNr, contact_person = :contactPerson WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         paramMap.put("clientName", client.getClientName());
@@ -59,5 +62,21 @@ public class ClientRepository {
         return jdbcTemplate.update(sql, paramMap);
     }
 
+    public ClientDto getClient(String clientName) {
+        String sql = "SELECT * FROM client WHERE client_name = :clientName";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("clientName", clientName);
+        ClientDto result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
+        return result;
+    }
+
+    public List<ClientDto> getClientList() {
+        String sql = "SELECT * FROM client";
+        Map<String, Object> paramMap = new HashMap<>();
+        List<ClientDto> result = jdbcTemplate.query(sql,paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
+        return result;
+
+
+    }
     }
 
