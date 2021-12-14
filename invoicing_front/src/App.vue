@@ -48,7 +48,7 @@
       <div v-if="!token">
         <v-container>
           Kasutajanimi: <input v-model="userTable.userName">
-          Parool: <input v-model="userTable.password">
+          Parool: <input v-model="userTable.password" type="password">
           <v-btn v-on:click="login">Login</v-btn>
           <v-btn v-on:click="getData">Get data</v-btn>
         </v-container>
@@ -72,12 +72,15 @@ export default {
       {title: 'Create Invoice', icon: 'mdi-file-document-edit-outline', to: '/CreateInvoice'},
       {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
       {title: 'VAT Codes', icon: 'mdi-format-list-group', to: '/Vat'},
+
     ],
-    token: ''
+    token: '',
+    userTable:{}
+
   }),
   methods: {
     login() {
-      this.$http.post('api/protect/login', this.user)
+      this.$http.post('api/public/password', this.userTable)
           .then(result => {
             this.token = result.data
             localStorage.setItem('user-token', this.token)
