@@ -47,8 +47,8 @@
       </div>
       <div v-if="!token">
         <v-container>
-          Kasutajanimi: <input v-model="userTable.userName">
-          Parool: <input v-model="userTable.password" type="password">
+          Kasutajanimi: <input v-model="newuser.userName">
+          Parool: <input v-model="newuser.password" type="password">
           <v-btn v-on:click="login">Login</v-btn>
           <v-btn v-on:click="getData">Get data</v-btn>
         </v-container>
@@ -75,12 +75,12 @@ export default {
 
     ],
     token: '',
-    userTable:{}
+    newuser:{}
 
   }),
   methods: {
     login() {
-      this.$http.post('api/public/password', this.userTable)
+      this.$http.post('api/public/password', this.newuser)
           .then(result => {
             this.token = result.data
             localStorage.setItem('user-token', this.token)
