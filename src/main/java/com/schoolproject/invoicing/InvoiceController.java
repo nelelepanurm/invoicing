@@ -11,19 +11,6 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
-    @PostMapping("api/invoicing/newinvoice")
-    public String newInvoice (@RequestBody InvoiceDTO invoice) {
-        return invoiceService.newInvoice(invoice.getInvoiceNr(), invoice.getInvoiceDate(), invoice.getPaymentDueIn(),
-                invoice.getPaymentDueDate(), invoice.getCompanyProfileId(), invoice.getClientId(),
-                invoice.getInvoiceComment(), invoice.getDelayPenalty(), invoice.getTotalNetSum(),
-                invoice.getTotalVatSum(), invoice.getTotalSum());
-    }
-
-    @PostMapping("api/invoicing/addrow")
-    public void newInvoiceRow (@RequestBody InvoiceDTO row) {
-        invoiceService.newInvoiceRow(row.getId(), row.getDescription(), row.getUnit(), row.getVatId(), row.getUnitPrice(),
-                row.getQuantity(), row.getNetSum(), row.getVatAmount(), row.getLineSum());
-    }
 
     @GetMapping("api/invoicing/getAll")
     public List<InvoiceDTO> getAllInvoices(){
@@ -34,6 +21,25 @@ public class InvoiceController {
     @GetMapping("api/invoicing/view/{invoiceNr}")
     public InvoiceDTO viewInvoice(@PathVariable("invoiceNr") String invoiceNr){
         return invoiceService.viewInvoice(invoiceNr);
+    }
 
+    @DeleteMapping ("api/invoicing/deleteinvoice/{invoiceNr}")
+    public InvoiceDTO deleteInvoice (@PathVariable("invoiceNr") String invoiceNr) {
+        return invoiceService.deleteInvoice(invoiceNr);
+    }
+
+    @PostMapping ("api/invoicing/saveinvoice")
+    public void saveInvoice (@RequestBody InvoiceDTO invoice) {
+        invoiceService.saveInvoice(invoice);
+    }
+
+    @PostMapping ("api/invoicing/vat")
+    public void createVat (@RequestBody InvoiceVatDTO vatDTO) {
+        invoiceService.createVatType(vatDTO.getVatDesc(), vatDTO.getVatPercent());
+    }
+
+    @PostMapping("api/invoicing/changevat")
+    public void changeVat(@RequestBody InvoiceVatDTO vatDTO) {
+        invoiceService.changeVatType(vatDTO);
     }
 }
