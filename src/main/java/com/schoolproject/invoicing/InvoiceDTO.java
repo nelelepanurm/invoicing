@@ -1,5 +1,7 @@
 package com.schoolproject.invoicing;
 
+import java.util.List;
+
 public class InvoiceDTO {
  private int id;
  private String invoiceNr;
@@ -13,16 +15,8 @@ public class InvoiceDTO {
  private double totalNetSum;
  private double totalVatSum;
  private double totalSum;
- private String description;
- private String unit;
- private int vatId;
- private double unitPrice;
- private double quantity;
- private double netSum;
- private double vatAmount;
- private double lineSum;
- private int invoiceRowId;
- private double vatPercent;
+
+ private List<InvoiceRowDTO> invoiceRows;
 
  public int getId() {
   return id;
@@ -120,84 +114,11 @@ public class InvoiceDTO {
   this.totalSum = totalSum;
  }
 
- public String getDescription() {
-  return description;
+ public List<InvoiceRowDTO> getInvoiceRows() {
+  return invoiceRows;
  }
 
- public void setDescription(String description) {
-  this.description = description;
+ public void setInvoiceRows(List<InvoiceRowDTO> invoiceRows) {
+  this.invoiceRows = invoiceRows;
  }
-
- public String getUnit() {
-  return unit;
- }
-
- public void setUnit(String unit) {
-  this.unit = unit;
- }
-
- public int getVatId() {
-  return vatId;
- }
-
- public void setVatId(int vatId) {
-  this.vatId = vatId;
- }
-
- public double getUnitPrice() {
-  return unitPrice;
- }
-
- public void setUnitPrice(double unitPrice) {
-  this.unitPrice = unitPrice;
- }
-
- public double getQuantity() {
-  return quantity;
- }
-
- public void setQuantity(double quantity) {
-  this.quantity = quantity;
- }
-
- public double getNetSum() {
-  return netSum;
- }
-
- public void setNetSum(double netSum) {
-  this.netSum = netSum;
- }
-
- public double getVatAmount() {
-  return vatAmount;
- }
-
- public void setVatAmount(double vatAmount) {
-  this.vatAmount = vatAmount;
- }
-
- public double getLineSum() {
-  return lineSum;
- }
-
- public void setLineSum(double lineSum) {
-  this.lineSum = lineSum;
- }
-
- public int getInvoiceRowId() {
-  return invoiceRowId;
- }
-
- public void setInvoiceRowId(int invoiceRowId) {
-  this.invoiceRowId = invoiceRowId;
- }
-
- public double getVatPercent() {
-  return vatPercent;
- }
-
- public void setVatPercent(double vatPercent) {
-  this.vatPercent = vatPercent;
- }
-
 }
