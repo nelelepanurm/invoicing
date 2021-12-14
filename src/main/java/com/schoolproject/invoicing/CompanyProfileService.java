@@ -53,4 +53,9 @@ public class CompanyProfileService {
         return "Company profile " + companyName + " is created.";
 
     }
+
+    public String changeCompany(Integer id, CompanyProfileDTO companyProfile){
+        companyProfileRepository.changeCompany(id, companyProfile);
+        return "Company information is updated";
+    }
 }

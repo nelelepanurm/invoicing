@@ -1,9 +1,7 @@
 package com.schoolproject.invoicing;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -16,5 +14,10 @@ public class CompanyProfileController {
     public String registerCompany(@RequestBody CompanyProfileDTO companyProfile) {
 
         return companyProfileService.registerCompany(companyProfile.getUserName(),companyProfile.getPassword(),companyProfile.geteMail(),companyProfile.getPhoneNr(),companyProfile.getAddress(),companyProfile.getPostalCode(),companyProfile.getCountry(),companyProfile.getRegNr(),companyProfile.getVatCode(),companyProfile.getBankName1(),companyProfile.getIban1(),companyProfile.getSwift1(),companyProfile.getBankName2(),companyProfile.getIban2(),companyProfile.getSwift2(),companyProfile.getBankName3(),companyProfile.getIban3(),companyProfile.getSwift3(),companyProfile.getEmailText(),companyProfile.getPaymentDeadline(),companyProfile.getDelayPenalty(),companyProfile.getUnit(),companyProfile.getLogoFail(),companyProfile.getCompanyName());
+    }
+
+    @PutMapping("api/company/change/{id}")
+    public String changeCompany(@PathVariable("id") int id, @RequestBody CompanyProfileDTO companyProfile) {
+        return companyProfileService.changeCompany(id, companyProfile);
     }
 }
