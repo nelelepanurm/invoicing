@@ -1,5 +1,6 @@
 package com.schoolproject.invoicing;
 
+import ch.qos.logback.core.net.server.Client;
 import com.schoolproject.invoicing.exception.ApplicationException;
 
 import liquibase.pro.packaged.A;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Service
 public class ClientService {
@@ -45,7 +48,16 @@ public class ClientService {
 
     public String changeClient(Integer id, ClientDto client){
         clientRepository.changeClient(id, client);
-        return "Client is changed";
+        return "Client information is changed";
+    }
+
+    public ClientDto getClient(String clientName) {
+        return clientRepository.getClient(clientName);
+    }
+
+
+    public List<ClientDto> getClientList() {
+        return clientRepository.getClientList();
     }
 }
 
