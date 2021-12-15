@@ -21,7 +21,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
     <v-app-bar
         app
         color=#84ab85
@@ -34,10 +33,9 @@
         <v-btn v-on:click="logOut">Log out</v-btn>
       </div>
     </v-app-bar>
-
     <v-main>
       <v-container>
-        <div v-if="!token" class="home pa-10">
+        <div v-if="!token && firstPage" class="home pa-10">
           <h1>Lets get started!</h1>
           <p class="font-weight-bold">
             Welcome to Invoicing page!<br>
@@ -50,21 +48,17 @@
             <v-btn v-on:click="getData">Get data</v-btn>
           </div>
           <br><br>
-
-            <p class="font-weight-bold"> Don't have an account yet? <br> Register
-              <v-btn v-on:click="registerHere()">HERE</v-btn>
-            </p>
-
+          <p class="font-weight-bold"> Don't have an account yet? <br> Register
+            <v-btn v-on:click="registerHere()">HERE</v-btn>
+          </p>
         </div>
       </v-container>
-      <div v-if="token">
+      <div v-if="!token && !firstPage">
         <router-view/>
       </div>
       <div v-if="!token">
       </div>
     </v-main>
-
-
   </v-app>
 </template>
 
@@ -78,12 +72,12 @@ export default {
     items: [
       {title: 'Home', icon: 'mdi-home', to: '/Home2'},
       {title: 'Invoices', icon: 'mdi-receipt', to: '/Invoices'},
-      {title: 'Create Invoice', icon: 'mdi-file-document-edit-outline', to: '/CreateInvoice'},
       {title: 'Clients', icon: 'mdi-account-group', to: '/Clients'},
       {title: 'VAT Codes', icon: 'mdi-format-list-group', to: '/Vat'},
       {title: 'My Profile2', icon: 'mdi-account-cog-outline', to: '/myProfile2'},
     ],
     token: '',
+    firstPage: true,
     newuser: {}
 
   }),
@@ -114,7 +108,7 @@ export default {
       location.reload()
     },
     registerHere: function () {
-      this.token = "fuu"
+      this.firstPage = false
       router.push({name: 'MyProfile'})
     }
   },

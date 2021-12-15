@@ -143,6 +143,17 @@
             <column name="total_sum" type="double"/>
         </addColumn>
     </changeSet>
+    <changeSet id="15-12-2021 drop userName and password from profile" author="Nadja Horeva">
+        <dropColumn tableName="company_profile">
+            <column name="user_name"/>
+            <column name="password"/>
+        </dropColumn>
+        <addColumn tableName="company_profile">
+            <column name="newuser_id" type="int">
+                <constraints foreignKeyName="fk_company_profile_newuser" references="newuser(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>

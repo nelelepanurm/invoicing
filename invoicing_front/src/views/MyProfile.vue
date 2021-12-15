@@ -11,15 +11,11 @@
       </tr>
       <tr>
         <td>Login name*</td>
-        <td><input v-model:placeholder="loginName" placeholder="login name"></td>
+        <td><input v-model:placeholder="company.userName" placeholder="login name"></td>
       </tr>
       <tr>
         <td>Password*</td>
-        <td><input v-model:placeholder="password" placeholder="password"></td>
-      </tr>
-      <tr>
-        <td>Password again*</td>
-        <td><input v-model:placeholder="password" placeholder="password"></td>
+        <td><input v-model:placeholder="company.password" placeholder="password"></td>
       </tr>
       <tr></tr>
       <br>
@@ -31,15 +27,15 @@
       </tr>
       <tr>
         <td>Company name*</td>
-        <td><input v-model:placeholder="companyName" placeholder="company name"></td>
+        <td><input v-model:placeholder="company.companyName" placeholder="company name"></td>
       </tr>
       <tr>
         <td>Register no.*</td>
-        <td><input v-model:placeholder="registerNo" placeholder="registerNo"></td>
+        <td><input v-model:placeholder="company.regNr" placeholder="registerNo"></td>
       </tr>
       <tr>
         <td>VAT no.*</td>
-        <td><input v-model:placeholder="vatNo" placeholder="vatNo"></td>
+        <td><input v-model:placeholder="company.vatCode" placeholder="vatNo"></td>
         <td>Tick box if no VAT<input type="checkbox"></td>
       </tr>
       <tr></tr>
@@ -52,23 +48,23 @@
       </tr>
       <tr>
         <td>Address*</td>
-        <td><input v-model:placeholder="address" placeholder="address"></td>
+        <td><input v-model:placeholder="company.address" placeholder="address"></td>
       </tr>
       <tr>
         <td>Country*</td>
-        <td><input v-model:placeholder="country" placeholder="country"></td>
+        <td><input v-model:placeholder="company.country" placeholder="country"></td>
       </tr>
       <tr>
-        <td>Post code</td>
-        <td><input v-model:placeholder="postCode" placeholder="post code"></td>
+        <td>Post code*</td>
+        <td><input v-model:placeholder="company.postalCode" placeholder="post code"></td>
       </tr>
       <tr>
         <td>E-mail*</td>
-        <td><input v-model:placeholder="email" placeholder="email"></td>
+        <td><input v-model:placeholder="company.eMail" placeholder="email"></td>
       </tr>
       <tr>
         <td>Phone number</td>
-        <td><input v-model:placeholder="phoneNumber" placeholder="phone number"></td>
+        <td><input v-model:placeholder="company.phoneNr" placeholder="phone number"></td>
       </tr>
       <tr></tr>
       <br>
@@ -80,39 +76,39 @@
       </tr>
       <tr>
         <td>Bank name* </td>
-        <td><input v-model:placeholder="bankName" placeholder="Bank name"></td>
+        <td><input v-model="company.bankName1" placeholder="Bank name"></td>
       </tr>
       <tr>
         <td>Bank account no.(IBAN) *</td>
-        <td><input v-model:placeholder="IBAN" placeholder="IBAN"></td>
+        <td><input v-model="company.iban1" placeholder="IBAN"></td>
       </tr>
       <tr>
         <td>SWIFT code* </td>
-        <td><input v-model:placeholder="SWIFT" placeholder="SWIFT"></td>
+        <td><input v-model="company.swift1" placeholder="SWIFT"></td>
       </tr>
       <tr>
         <td>Bank name 2</td>
-        <td><input v-model:placeholder="bankName2" placeholder="Bank name 2"></td>
+        <td><input v-model="company.bankName2" placeholder="Bank name 2"></td>
       </tr>
       <tr>
         <td>Bank account no.(IBAN) 2</td>
-        <td><input v-model:placeholder="IBAN2" placeholder="IBAN2"></td>
+        <td><input v-model="company.iban2" placeholder="IBAN2"></td>
       </tr>
       <tr>
         <td>SWIFT code 2</td>
-        <td><input v-model:placeholder="SWIFT2" placeholder="SWIFT2"></td>
+        <td><input v-model="company.swift2" placeholder="SWIFT2"></td>
       </tr>
       <tr>
         <td>Bank name 3</td>
-        <td><input v-model:placeholder="bankName3" placeholder="Bank name 3"></td>
+        <td><input v-model="company.bankName3" placeholder="Bank name 3"></td>
       </tr>
       <tr>
         <td>Bank account no.(IBAN) 3</td>
-        <td><input v-model:placeholder="IBAN3" placeholder="IBAN3"></td>
+        <td><input v-model="company.iban3" placeholder="IBAN3"></td>
       </tr>
       <tr>
         <td>SWIFT code 3</td>
-        <td><input v-model:placeholder="SWIFT3" placeholder="SWIFT3"></td>
+        <td><input v-model="company.swift3" placeholder="SWIFT3"></td>
       </tr>
       <br>
       <tr>
@@ -123,72 +119,53 @@
       </tr>
       <tr>
         <td>E-mail text by default</td>
-        <td><input v-model:placeholder="email" placeholder="email"></td>
+        <td><input v-model="company.emailText" placeholder="email"></td>
       </tr>
       <tr>
         <td>Invoice payment period by default(days):</td>
-        <td><input v-model:placeholder="paymendDueDay" placeholder="payment due days"></td>
+        <td><input v-model="company.paymentDeadline" placeholder="payment due days"></td>
       </tr>
       <tr>
         <td>Delay penalty % by default</td>
-        <td><input v-model:placeholder="delayPenalty" placeholder="delay penalty %"></td>
+        <td><input v-model="company.delayPenalty" placeholder="delay penalty %"></td>
       </tr>
       <tr>
         <td>Measurement unit by default</td>
-        <td><input v-model:placeholder="unit" placeholder="unit"></td>
+        <td><input v-model="company.unit" placeholder="unit"></td>
       </tr>
       <tr>
         <td>Logo</td>
-        <td><input v-model:placeholder="logo" placeholder="logo"></td>
+        <td><input v-model:placeholder="company.logoFail" placeholder="logo"></td>
       </tr>
 
       <tr></tr>
 
-
-      <tr v-for="profile in profiles">
-        <td>{{ profile.loginName }}</td>
-        <td>{{ profile.password }}</td>
-        <td>{{ profile.passwordAgain }}</td>
-        <td>{{ profile.companyName }}</td>
-        <td>{{ profile.Registerno }}</td>
-        <td>{{ profile.VATno }}</td>
-        <td>{{ profile.Address }}</td>
-        <td>{{ profile.country }}</td>
-        <td>{{ profile.postCode }}</td>
-        <td>{{ profile.eMail }}</td>
-        <td>{{ profile.phone }}</td>
-        <td>{{ profile.bankName1 }}</td>
-        <td>{{ profile.account1 }}</td>
-        <td>{{ profile.swift1 }}</td>
-        <td>{{ profile.bankName2 }}</td>
-        <td>{{ profile.account2 }}</td>
-        <td>{{ profile.swift2 }}</td>
-        <td>{{ profile.bankName3 }}</td>
-        <td>{{ profile.account3 }}</td>
-        <td>{{ profile.swift3 }}</td>
-        <td>{{ profile.emailText }}</td>
-        <td>{{ profile.payment }}</td>
-        <td>{{ profile.delay }}</td>
-        <td>{{ profile.unit }}</td>
-        <td>{{ profile.logo }}</td>
-
-
-      </tr>
-
-
     </table>
     <br><br>
-    <v-btn class="pa-3" @click="saveChanges()">SAVE CHANGES</v-btn>
+    <v-btn class="pa-3" @click="registerCompany()">SAVE</v-btn>
 
   </div>
 </template>
 
 <script>
+import router from "@/router";
 export default {
   data: function () {
-    return {}
+    return {
+      company: {},
+      newCompany:{},
+    }
   },
-  methods: {}
+  methods: {
+    registerCompany: function () {
+      this.$http.post("api/public/registercompany/", this.company)
+      .then (response => {
+        this.newCompany = response.data
+        alert ("Company registered")
+        router.push({name: 'Home2'})
+      })
+    },
+  }
 }
 
 </script>
