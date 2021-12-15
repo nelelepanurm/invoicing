@@ -25,7 +25,6 @@ public class ClientController {
 
     @PostMapping("api/client/createclient/")
     public String createClient(@RequestBody ClientDto client) {
-
         return clientService.createClient(client.getClientName(), client.getAddress(), client.getContactPerson(), client.getCountry(), client.geteMail(), client.getPhoneNr(), client.getPostCode(), client.getRegNr(), client.getVatNr());
     }
 
@@ -51,5 +50,10 @@ public class ClientController {
         List<ClientDto> list = clientService.getClientList();
         return list;
 
+    }
+
+    @GetMapping("api/getclient/{id}")
+    public ClientDto getClientId(@PathVariable("id") Integer id) {
+        return clientService.getClientId(id);
     }
 }

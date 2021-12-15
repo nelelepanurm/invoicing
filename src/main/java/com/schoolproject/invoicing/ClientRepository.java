@@ -78,5 +78,13 @@ public class ClientRepository {
 
 
     }
+
+    public ClientDto getClientId(Integer id) {
+        String sql = "SELECT * FROM client WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        ClientDto result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
+        return result;
+    }
     }
 
