@@ -59,6 +59,10 @@ public class ClientService {
     public List<ClientDto> getClientList() {
         return clientRepository.getClientList();
     }
+
+    public ClientDto getClientId(Integer id) {
+        return clientRepository.getClientId(id);
+    }
 }
 
 

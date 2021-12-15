@@ -7,6 +7,8 @@ import Home2 from '../views/Home2'
 import Invoices from '../views/Invoices'
 import CreateInvoice from '../views/CreateInvoice'
 import Vat from '../views/Vat'
+import CreateClient from '../views/CreateClient'
+import EditClient from '../views/EditClient'
 
 Vue.use(VueRouter)
 
@@ -38,15 +40,25 @@ const routes = [
     component: Invoices
   },
   {
-    path: '/CreateInvoice',
+    path: '/createInvoice',
     name: 'CreateInvoice',
     component: CreateInvoice
   },
   {
-    path: '/Vat',
+    path: '/vat',
     name: 'Vat',
     component: Vat
   },
+  {
+  path: '/createClient',
+    name: 'CreateClient',
+    component: CreateClient
+},
+  {
+    path: '/editClient/:id',
+    name: 'EditClient',
+    component: EditClient
+  }
 ]
 
 const router = new VueRouter({
