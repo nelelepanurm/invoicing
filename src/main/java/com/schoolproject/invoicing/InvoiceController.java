@@ -12,7 +12,7 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
 
-    @GetMapping("api/invoicing/getAll")
+    @GetMapping("api/invoicing/")
     public List<InvoiceDTO> getAllInvoices(){
         List<InvoiceDTO> list = invoiceService.getAllInvoices();
         return list;

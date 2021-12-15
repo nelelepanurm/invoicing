@@ -19,9 +19,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void createUser(String userName,String password){
+    public Integer createUser(String userName,String password){
+        if (userName == null || userName.isBlank()) {
+            throw new ApplicationException("Username is not filled.");
+        }
+        if (password == null || password.isBlank()) {
+            throw new ApplicationException("Password is not filled.");
+        }
         String encodedPassword = passwordEncoder.encode(password);
-        userRepository.createUser(userName,encodedPassword);
+        return userRepository.createUser(userName,encodedPassword);
     }
 
     public String login(String userName,String password){
