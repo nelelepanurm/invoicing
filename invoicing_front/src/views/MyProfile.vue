@@ -2,7 +2,7 @@
   <div class="home pa-10">
     <h1>My Profile</h1>
 <br><br>
-    <table>
+    <table style="margin-left: 10px">
       <tr>
         <th>
           <p class="text-md-left" >
@@ -162,7 +162,7 @@ export default {
       .then (response => {
         this.newCompany = response.data
         alert ("Company registered")
-        router.push({name: 'Home2'})
+        router.push({name: 'App'})
       })
     },
   }

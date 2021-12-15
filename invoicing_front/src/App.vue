@@ -53,7 +53,7 @@
           </p>
         </div>
       </v-container>
-      <div v-if="!token && !firstPage">
+      <div v-if="token || !token && !firstPage">
         <router-view/>
       </div>
       <div v-if="!token">
