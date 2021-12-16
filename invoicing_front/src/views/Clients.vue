@@ -13,7 +13,9 @@
           <v-text-field
               label="search"
               placeholder="Placeholder"
-              solo>
+              solo
+              @keyup="search = $event.target.value; getClientList()"
+          >
           </v-text-field>
         </v-col>
       </v-row>
@@ -72,6 +74,7 @@ export default {
       clients: {},
       search:"",
 
+
     }
   },
   methods: {
@@ -81,6 +84,7 @@ export default {
     },
 
     getClientList: function () {
+
       this.$http.get('api/client/getclient', {
         params: {
           search: this.search

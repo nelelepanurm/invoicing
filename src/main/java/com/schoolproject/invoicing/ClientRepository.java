@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Repository
@@ -74,7 +75,8 @@ public class ClientRepository {
         String sql = "SELECT * FROM client";
         Map<String, Object> paramMap = new HashMap<>();
         if (search != null && !search.isBlank()) {
-            sql += "WHERE client_name LIKE :search OR reg_nr LIKE :search";
+            search = search.toLowerCase(Locale.ROOT);
+            sql += " WHERE LOWER(client_name) LIKE :search OR LOWER(reg_nr) LIKE :search";
             paramMap.put("search", search + "%");
         }
 

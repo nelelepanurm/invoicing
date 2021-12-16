@@ -1,85 +1,95 @@
 <template>
-  <div class="home pa-10">
+  <div className="home pa-10">
     <h1>VAT Codes</h1><br><br><br>
+
     <div>
       <v-row>
         <v-col sm="6" md="6">
-          <v-btn @click="createVAT()">NEW VAT CODE</v-btn>
+          <v-btn v-on:click="createVat()">New Vat code</v-btn>
         </v-col>
       </v-row>
       <v-row>
         <v-col sm="6" md="6">
           <v-text-field
               label="search"
+              placeholder="Placeholder"
               solo>
           </v-text-field>
         </v-col>
       </v-row>
     </div>
-    <v-data-table
-      :headers="headers"
-      :items="myitems"
-      hide-default-header
-  >
+    <table>
+      <tr>
+        <th v-on:click="orderBy('id')">ID</th>
+        <th v-on:click="orderBy('id')">Vat description</th>
+        <th v-on:click="orderBy('id')">Vat percent</th>
 
-    <template v-slot:header="{ props: { headers } }">
-      <thead>
-      <tr>
-        <th v-for="h in headers" :class="h.class">
-          <span>{{h.text}}</span>
-        </th>
       </tr>
-      <tr>
-        <th v-for="v in vatdata"
+
+      <tr v-for="client in clients">
+        <td>{{ client.id }}</td>
+        <td>{{ client.vatDesc }}</td>
+        <td>{{ client.vatPercent }}</td>
+
+        <td>
+          <v-btn v-on:click="editVatType(client.id)">Edit</v-btn>
+        </td>
+        <td>
+          <v-btn v-on:click="deleteClient(client.id,client.clientName)">Remove</v-btn>
+        </td>
       </tr>
-      </thead>
-    </template>
-  </v-data-table>
+    </table>
+
+
   </div>
 </template>
 
 <script>
-export default {
-  name: 'MyComponent',
+// @ is an alias to /src
 
-  data () {
+import router from "../router";
+
+export default {
+  data: function () {
     return {
-      headers:[
-        { text: 'VAT ID', value: 'first', class: 'my-header-style' },
-        { text: 'VAT Name', value: 'thing', class: 'my-header-style' },
-        { text: 'VAT AMOUNT', value: 'thing', class: 'my-header-style' },
-      ],
-      myitems : []
+      clients: {},
+
     }
   },
   methods: {
-    getVatList: function () {
-      this.$http.get('api/vatlist/')
-      .then (response => {
-        this.myitems = response.data
-      })
-    }
-  }
 
+    createVat: function () {
+      router.push({name: "CreateClient"})
+    },
+
+    getVatList: function () {
+      this.$http.get('api/client/')
+          .then(response => {
+            this.clients = response.data;
+          })
+    },
+    editVatType: function (id) {
+      console.log(id)
+      router.push({name: 'EditClient', params: {id: id}})
+    },
+    deleteClient: function (id, clientName) {
+      if (confirm('Are you sure you want to delete client?')) {
+        this.$http.delete("api/client/delete/" + id)
+        alert(clientName + ' is now deleted');
+        this.getClientList()
+      } else {
+        alert('Client not deleted');
+      }
+    }
+
+
+  },
+  mounted() {
+    this.getClientList()
+  }
 }
+
+
 </script>
 
-
-
-<style scoped>
-.some-other-style {
-  background: white;
-
-}
-.my-header-style {
-  color: #808080 !important;
-  background-color: darkseagreen;
-  padding: 0px;
-  padding-left: 2.5%;
-  font-color: white;
-  font-size: 1000px;
-}
-
-
-</style>
 
