@@ -85,10 +85,10 @@ public class CompanyProfileRepository {
         paramMap.put("companyName",companyProfile.getCompanyName());
         return jdbcTemplate.update(sql, paramMap);
     }
-    public CompanyProfileDTO getCompany(String userName) {
-        String sql = "SELECT * FROM company_profile WHERE user_name = :userName";
+    public CompanyProfileDTO getCompanyByUser(Integer userId) {
+        String sql = "SELECT * FROM company_profile WHERE newuser_id = :userId";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("userName", userName);
+        paramMap.put("userId", userId);
         CompanyProfileDTO result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(CompanyProfileDTO.class));
         return result;
     }

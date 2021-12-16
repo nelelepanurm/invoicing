@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import App from "@/App";
 import Clients from '../views/Clients'
 import MyProfile from '../views/MyProfile'
 import MyProfile2 from '../views/MyProfile2'
@@ -13,7 +14,11 @@ import EditClient from '../views/EditClient'
 Vue.use(VueRouter)
 
 const routes = [
-
+  {
+    path: '/app',
+    name: 'App',
+    component: App
+  },
   {
     path: '/clients',
     name: 'Clients',

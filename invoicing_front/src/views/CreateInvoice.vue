@@ -6,12 +6,12 @@
           Seller
         </h2>
         <p>
-          <input v-model:placeholder="companyName" placeholder="function getCompanyName"><br>
-          <input v-model:placeholder="address" placeholder="function getAddressfromProfile"><br>
-          <input v-model:placeholder="postCode" placeholder="function postCode"><br>
-          <input v-model:placeholder="country" placeholder="function country"><br>
-          <input v-model:placeholder="phoneNr" placeholder="function phone nr"><br>
-          <input v-model:placeholder="eMail" placeholder="function e-mail"><br>
+          <input disabled v-model:placeholder="company.companyName"><br>
+          <input disabled v-model:placeholder="company.address"><br>
+          <input disabled v-model:placeholder="company.postalCode"><br>
+          <input disabled v-model:placeholder="company.country"><br>
+          <input disabled v-model:placeholder="company.phoneNr"><br>
+          <input disabled v-model:placeholder="company.eMail"><br>
         </p>
         <h2 class="grey py-1 mt-9 pl-2 mr-10">BILL TO</h2>
         <p>
@@ -22,18 +22,19 @@
           >
             <v-select
                 :items="clientList"
+                item-text="clientName"
                 label="search client"
                 dense
                 outlined
             ></v-select>
             <v-btn @click="newClient()">NEW CLIENT</v-btn>
           </v-col>
-          <input v-model:placeholder="clientName" placeholder="function getclientName"><br>
-          <input v-model:placeholder="address" placeholder="function getAddressfromClients"><br>
-          <input v-model:placeholder="postCode" placeholder="function postCode"><br>
-          <input v-model:placeholder="country" placeholder="function country"><br>
-          <input v-model:placeholder="phoneNr" placeholder="function phone nr"><br>
-          <input v-model:placeholder="eMail" placeholder="function e-mail"><br>
+          <input disabled v-model:placeholder="clientList.clientName"><br>
+          <input disabled v-model:placeholder="clientList.address"><br>
+          <input disabled v-model:placeholder="clientList.postCode"><br>
+          <input disabled v-model:placeholder="clientList.country"><br>
+          <input disabled v-model:placeholder="clientList.phoneNr"><br>
+          <input disabled v-model:placeholder="clientList.eMail"><br>
         </p>
       </v-col>
 
@@ -42,25 +43,19 @@
           Invoice No
           <input v-model="invoice.invoiceNr" placeholder="invoice number here">
         </h2>
-
-        <h8 class="mt-10">
-          <v-flex class="py-6 my-3 ">
-
-            <table>
-              <tr>
-                <td> Invoice Date:</td>
-                <td><input type="date" v-model="invoiceDate"></td>
-                <br>
-              </tr>
-              <tr>
-                <td>Payment due:</td>
-                <td><input type="date" v-model="invoiceDueDate"></td>
-              </tr>
-            </table>
-
-          </v-flex>
-        </h8>
-
+        <v-flex class="py-6 my-3 ">
+          <table>
+            <tr>
+              <td> Invoice Date:</td>
+              <td><input type="date" v-model="invoiceDate"></td>
+              <br>
+            </tr>
+            <tr>
+              <td>Payment due:</td>
+              <td><input type="date" v-model="invoiceDueDate"></td>
+            </tr>
+          </table>
+        </v-flex>
       </v-col>
 
     </v-row>
@@ -189,14 +184,17 @@ export default {
     clientList: [],
     invoiceNr: {},
     companyName: {},
-    address: {},
-    postCode: {},
-    country: {},
-    phoneNr: {},
-    eMail: {},
+    address: "",
+    postCode: "",
+    country: "",
+    phoneNr: "",
+    eMail: "",
+    invoiceDate: "",
+    invoiceDueDate: "",
     clientName: {},
     invoice: {},
-
+    company: {},
+    client: {},
 
   }),
 
@@ -210,8 +208,8 @@ export default {
         vatCode: "",
         vatSum: "",
         unit: "",
+        theCompany: []
       });
-
     },
     calcTotal(i) {
       let price = this.price[i];
@@ -225,15 +223,33 @@ export default {
     removeItem(index) {
       this.itemRows.splice(index, 1);
     },
+    getCompany: function () {
+      this.$http.get('api/getcompany')
+          .then(response => {
+            this.company = response.data
+          })
+    },
+    saveInvoice: function () {
+      this.$http.post("api/invoicing/saveinvoice", this.invoice)
+    },
+    // newClient: function () {
+    // router.push({name: 'CreateClient'})
+    // }
+    getClientList: function () {
+      this.$http.get('api/client/')
+          .then(response => {
+            this.clientList = response.data;
+          })
+    }
+
+
+
   },
-  created() {
-    this.addItem();
-  },
-  saveInvoice: function () {
-    this.$http.post("api/invoicing/saveinvoice", this.invoice)
+  mounted() {
+    this.addItem()
+    let theCompany = this.getCompany()
+    console.log(theCompany)
+    this.getClientList()
   }
-  // newClient: function () {
-  // router.push({name: 'CreateClient'})
-  // }
-};
+}
 </script>

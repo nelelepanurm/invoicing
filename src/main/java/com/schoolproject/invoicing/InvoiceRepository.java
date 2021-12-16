@@ -1,6 +1,7 @@
 package com.schoolproject.invoicing;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -192,6 +193,12 @@ public class InvoiceRepository {
         paramMap.put("vatDesc", vatDTO.getVatDesc());
         paramMap.put("vatPercent", vatDTO.getVatPercent());
         jdbcTemplate.update(sql, paramMap);
+    }
+    public List<InvoiceVatDTO> getVatList() {
+        String sql = "SELECT * FROM vat_type";
+        Map<String, Object> paramMap = new HashMap<>();
+        List<InvoiceVatDTO> vatList = jdbcTemplate.query(sql,paramMap, new BeanPropertyRowMapper<>(InvoiceVatDTO.class));
+        return vatList;
     }
 }
 
