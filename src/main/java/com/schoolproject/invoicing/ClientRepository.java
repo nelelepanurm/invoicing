@@ -20,7 +20,7 @@ public class ClientRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public Integer createClient(String clientName,String address,String contactPerson, String country,String eMail,String phoneNr,String postCode,String regNr,String vatNr) {
+    public Integer createClient(String clientName, String address, String contactPerson, String country, String eMail, String phoneNr, String postCode, String regNr, String vatNr) {
         String sql = "INSERT INTO client (client_name,address,contact_person,country,e_mail,phone_nr,postal_code,reg_nr,vat_nr) VALUES (:clientName,:address,:contactPerson,:country,:eMail,:phoneNr,:postCode,:regNr,:vatNr)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("clientName", clientName);
@@ -41,7 +41,7 @@ public class ClientRepository {
 
     public int deleteClient(int id) {
         String sql = "DELETE FROM client WHERE id=:id";
-        Map<String,Object>paramMap=new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         return jdbcTemplate.update(sql, paramMap);
     }
@@ -70,14 +70,20 @@ public class ClientRepository {
         return result;
     }
 
-    public List<ClientDto> getClientList() {
+    public List<ClientDto> getClientList(String search) {
         String sql = "SELECT * FROM client";
         Map<String, Object> paramMap = new HashMap<>();
-        List<ClientDto> result = jdbcTemplate.query(sql,paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
-        return result;
+        if (search != null && !search.isBlank()) {
+            sql += "WHERE client_name LIKE :search OR reg_nr LIKE :search";
+            paramMap.put("search", search + "%");
+        }
+
+        return jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
 
 
     }
+
+
 
     public ClientDto getClientId(Integer id) {
         String sql = "SELECT * FROM client WHERE id = :id";
@@ -86,5 +92,5 @@ public class ClientRepository {
         ClientDto result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
         return result;
     }
-    }
+}
 

@@ -18,7 +18,7 @@ public class CompanyProfileService {
     @Autowired
     private UserRepository userRepository;
 
-    public String registerCompany(int newuserId, String eMail, String phoneNr, String address, String postalCode, String country, String regNr, String vatCode, String bankName1, String iban1, String swift1, String bankName2, String iban2, String swift2, String bankName3, String iban3, String swift3, String emailText, String paymentDeadline, int delayPenalty, String unit, String logoFail, String companyName) {
+    public String registerCompany(int newuserId, String eMail, String phoneNr, String address, String postalCode, String country, String regNr, String vatCode, String bankName1, String iban1, String swift1, String bankName2, String iban2, String swift2, String bankName3, String iban3, String swift3, String emailText, String paymentDeadline, Integer delayPenalty, String unit, String logoFail, String companyName) {
      /*   if (userName == null || userName.isBlank()) {
             throw new ApplicationException("Username is not filled.");
         }

@@ -19,11 +19,11 @@ public class UserRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public Integer createUser(String userName, String password){
+    public Integer createUser(String userName, String password) {
         String sql = "INSERT INTO newuser (user_name, password) VALUES (:userName, :password)";
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("userName",userName);
-        paramMap.put("password",password);
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userName", userName);
+        paramMap.put("password", password);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
@@ -31,19 +31,28 @@ public class UserRepository {
 
     }
 
-    public String getPassword(String userName){
+    public String getPassword(String userName) {
         String sql = "SELECT password FROM newuser WHERE user_name = :userName";
-        Map<String,Object>paramMap= new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", userName);
         String result = jdbcTemplate.queryForObject(sql, paramMap, String.class);
         return result;
     }
 
-    public UserDTO findUserByName (String userName) {
+    public UserDTO findUserByName(String userName) {
         String sql = "SELECT * FROM newuser WHERE user_name = :userName";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", userName);
         UserDTO result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(UserDTO.class));
         return result;
+    }
+
+    public Boolean checkData(String userName) {
+        String sql = "SELECT EXISTS(SELECT*FROM newuser WHERE user_name = :userName)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userName", userName);
+        Boolean result = jdbcTemplate.queryForObject(sql, paramMap,Boolean.class);
+        return result;
+
     }
 }

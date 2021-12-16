@@ -1,11 +1,11 @@
 <template>
   <div class="home pa-10">
     <h1>My Profile</h1>
-<br><br>
+    <br><br>
     <table style="margin-left: 10px">
       <tr>
         <th>
-          <p class="text-md-left" >
+          <p class="text-md-left">
             USER PROFILE REGISTER PAGE</p>
         </th>
       </tr>
@@ -21,7 +21,7 @@
       <br>
       <tr>
         <th>
-          <p class="text-md-left" >
+          <p class="text-md-left">
             GENERAL DETAILS</p>
         </th>
       </tr>
@@ -42,7 +42,7 @@
       <br>
       <tr>
         <th>
-          <p class="text-md-left" >
+          <p class="text-md-left">
             CONTACT DETAILS</p>
         </th>
       </tr>
@@ -70,12 +70,12 @@
       <br>
       <tr>
         <th>
-          <p class="text-md-left" >
+          <p class="text-md-left">
             BANK ACCOUNTS</p>
         </th>
       </tr>
       <tr>
-        <td>Bank name* </td>
+        <td>Bank name*</td>
         <td><input v-model="company.bankName1" placeholder="Bank name"></td>
       </tr>
       <tr>
@@ -83,7 +83,7 @@
         <td><input v-model="company.iban1" placeholder="IBAN"></td>
       </tr>
       <tr>
-        <td>SWIFT code* </td>
+        <td>SWIFT code*</td>
         <td><input v-model="company.swift1" placeholder="SWIFT"></td>
       </tr>
       <tr>
@@ -113,8 +113,8 @@
       <br>
       <tr>
         <th>
-          <p class="text-md-left" >
-             ADDITIONAL DETAILS</p>
+          <p class="text-md-left">
+            ADDITIONAL DETAILS</p>
         </th>
       </tr>
       <tr>
@@ -155,18 +155,25 @@ export default {
   data: function () {
     return {
       company: {},
-      newCompany:{},
+      newCompany: {},
+      userName: "",
     }
   },
   methods: {
     registerCompany: function () {
       this.$http.post("api/public/registercompany/", this.company)
-      .then (response => {
-        alert ("Company registered")
-        location.reload()
+          .then(response => {
+            alert("Company registered")
+            location.reload()
+          }).catch(function (error) {
+        console.log(error.response.data.message2);
+        alert(error.response.data.message2);
       })
     },
-  }
+
+    }
 }
+
+
 
 </script>

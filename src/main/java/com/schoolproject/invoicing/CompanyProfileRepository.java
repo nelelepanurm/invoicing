@@ -19,7 +19,7 @@ public class CompanyProfileRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public Integer registerCompany(int newuserId, String eMail, String phoneNr, String address, String postalCode, String country, String regNr, String vatCode, String bankName1, String iban1, String swift1, String bankName2, String iban2, String swift2, String bankName3, String iban3,String swift3, String emailText, String paymentDeadline, int delayPenalty, String unit, String logoFail, String companyName ) {
+    public Integer registerCompany(int newuserId, String eMail, String phoneNr, String address, String postalCode, String country, String regNr, String vatCode, String bankName1, String iban1, String swift1, String bankName2, String iban2, String swift2, String bankName3, String iban3,String swift3, String emailText, String paymentDeadline, Integer delayPenalty, String unit, String logoFail, String companyName ) {
         String sql = "INSERT INTO company_profile (newuser_id,e_mail,phone_nr,address,postal_code,country,registration_code,vat_code, bank_name1,iban1,swift1,bank_name2,iban2,swift2,bank_name3,iban3,swift3,email_text,payment_deadline,delay_penalty,unit,logo_fail,company_name) VALUES (:newuserId, :eMail, :phoneNr, :address, :postalCode, :country, :regNr, :vatCode, :bankName1, :iban1, :swift1, :bankName2, :iban2, :swift2, :bankName3, :iban3,:swift3, :emailText, :paymentDeadline, :delayPenalty, :unit, :logoFail, :companyName )";
         Map<String, Object> paramMap = new HashMap<>();
         /*paramMap.put("userName", userName);

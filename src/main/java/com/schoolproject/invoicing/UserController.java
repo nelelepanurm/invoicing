@@ -7,26 +7,31 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class UserController {
-
 
 
     @Autowired
     private UserService userService;
 
+
+
     @PostMapping("api/public/newuser")
-    public void createUser(@RequestBody CreateUserRequest request){
-        userService.createUser(request.getUserName(),request.getPassword());
+    public void createUser(@RequestBody CreateUserRequest request) {
+        userService.createUser(request.getUserName(), request.getPassword());
     }
 
     @PostMapping("api/public/password")
-    public String login(@RequestBody CreateUserRequest request){
-        return userService.login(request.getUserName(),request.getPassword());
+    public String login(@RequestBody CreateUserRequest request) {
+        return userService.login(request.getUserName(), request.getPassword());
 
     }
+
     @GetMapping("api/protected")
-    public String testLogin(){
+    public String testLogin() {
         return "Protected page";
     }
 
@@ -36,4 +41,6 @@ public class UserController {
         String username = auth.getName();
         return userService.findUserByName(username);
     }
+
+
 }
