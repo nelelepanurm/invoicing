@@ -21,7 +21,7 @@ public class CompanyProfileDTO {
     private String swift3;
     private String emailText;
     private String paymentDeadline;
-    private int delayPenalty;
+    private Integer delayPenalty;
     private String unit;
     private String logoFail;
     private String companyName;
@@ -186,11 +186,11 @@ public class CompanyProfileDTO {
         this.paymentDeadline = paymentDeadline;
     }
 
-    public int getDelayPenalty() {
+    public Integer getDelayPenalty() {
         return delayPenalty;
     }
 
-    public void setDelayPenalty(int delayPenalty) {
+    public void setDelayPenalty(Integer delayPenalty) {
         this.delayPenalty = delayPenalty;
     }
 

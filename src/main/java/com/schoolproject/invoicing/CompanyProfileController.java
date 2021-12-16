@@ -17,7 +17,29 @@ public class CompanyProfileController {
     @PostMapping("api/public/registercompany/")
     public void registerCompany(@RequestBody CompanyProfileDTO companyProfile) {
         int newUserId = userService.createUser(companyProfile.getUserName(), companyProfile.getPassword());
-        companyProfileService.registerCompany(newUserId, companyProfile.geteMail(),companyProfile.getPhoneNr(),companyProfile.getAddress(),companyProfile.getPostalCode(),companyProfile.getCountry(),companyProfile.getRegNr(),companyProfile.getVatCode(),companyProfile.getBankName1(),companyProfile.getIban1(),companyProfile.getSwift1(),companyProfile.getBankName2(),companyProfile.getIban2(),companyProfile.getSwift2(),companyProfile.getBankName3(),companyProfile.getIban3(),companyProfile.getSwift3(),companyProfile.getEmailText(),companyProfile.getPaymentDeadline(),companyProfile.getDelayPenalty(),companyProfile.getUnit(),companyProfile.getLogoFail(),companyProfile.getCompanyName());
+        companyProfileService.registerCompany(newUserId,
+                companyProfile.geteMail(),
+                companyProfile.getPhoneNr(),
+                companyProfile.getAddress(),
+                companyProfile.getPostalCode(),
+                companyProfile.getCountry(),
+                companyProfile.getRegNr(),
+                companyProfile.getVatCode(),
+                companyProfile.getBankName1(),
+                companyProfile.getIban1(),
+                companyProfile.getSwift1(),
+                companyProfile.getBankName2(),
+                companyProfile.getIban2(),
+                companyProfile.getSwift2(),
+                companyProfile.getBankName3(),
+                companyProfile.getIban3(),
+                companyProfile.getSwift3(),
+                companyProfile.getEmailText(),
+                companyProfile.getPaymentDeadline(),
+                companyProfile.getDelayPenalty(),
+                companyProfile.getUnit(),
+                companyProfile.getLogoFail(),
+                companyProfile.getCompanyName());
     }
 
     @PutMapping("api/company/change/{id}")

@@ -48,8 +48,12 @@
         <td>{{ client.phoneNr }}</td>
         <td>{{ client.contactPerson }}</td>
 
-      <td><v-btn v-on:click="changeClient(client.id)">Edit</v-btn></td>
-      <td><v-btn v-on:click="deleteClient(client.id,client.clientName)">Remove</v-btn></td>
+        <td>
+          <v-btn v-on:click="changeClient(client.id)">Edit</v-btn>
+        </td>
+        <td>
+          <v-btn v-on:click="deleteClient(client.id,client.clientName)">Remove</v-btn>
+        </td>
       </tr>
     </table>
 
@@ -66,6 +70,7 @@ export default {
   data: function () {
     return {
       clients: {},
+      search:"",
 
     }
   },
@@ -76,21 +81,26 @@ export default {
     },
 
     getClientList: function () {
-      this.$http.get('api/client/')
+      this.$http.get('api/client/getclient', {
+        params: {
+          search: this.search
+        }
+      })
           .then(response => {
             this.clients = response.data;
           })
     },
-    changeClient:function(id){
+
+    changeClient: function (id) {
       console.log(id)
-      router.push({name:'EditClient',params:{id: id}})
+      router.push({name: 'EditClient', params: {id: id}})
     },
-    deleteClient: function(id,clientName){
-      if (confirm('Are you sure you want to delete client?')){
+    deleteClient: function (id, clientName) {
+      if (confirm('Are you sure you want to delete client?')) {
         this.$http.delete("api/client/delete/" + id)
         alert(clientName + ' is now deleted');
         this.getClientList()
-      }else{
+      } else {
         alert('Client not deleted');
       }
     }

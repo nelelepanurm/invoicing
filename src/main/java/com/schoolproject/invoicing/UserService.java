@@ -26,6 +26,11 @@ public class UserService {
         if (password == null || password.isBlank()) {
             throw new ApplicationException("Password is not filled.");
         }
+        //String sql = "SELECT EXISTS(SELECT*FROM newuser WHERE user_name = :userName)";
+        boolean doesExist = userRepository.checkData(userName);
+        if (doesExist == true) {
+            throw new ApplicationException("Username already exists. Please choose new one.");
+        }
         String encodedPassword = passwordEncoder.encode(password);
         return userRepository.createUser(userName,encodedPassword);
     }
