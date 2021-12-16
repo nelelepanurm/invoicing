@@ -24,7 +24,6 @@ public class UserRepository {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("userName",userName);
         paramMap.put("password",password);
-        jdbcTemplate.update(sql, paramMap);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);

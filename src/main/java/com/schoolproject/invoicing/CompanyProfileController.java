@@ -3,6 +3,8 @@ package com.schoolproject.invoicing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 
 @RestController
 public class CompanyProfileController {
@@ -23,9 +25,10 @@ public class CompanyProfileController {
         return companyProfileService.changeCompany(id, companyProfile);
     }
 
-    @GetMapping("api/company/{userName}")
-    public CompanyProfileDTO getCompany(@PathVariable("userName") String userName) {
-        return companyProfileService.getCompany(userName);
+    @GetMapping("api/getcompany")
+    public CompanyProfileDTO getCompany(Principal principal) {
+        String loggedInUser = principal.getName();
+        return companyProfileService.getCompany(loggedInUser);
     }
 
     @GetMapping("api/company/{id}")

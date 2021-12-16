@@ -61,4 +61,8 @@ public class InvoiceService {
     public void changeVatType (InvoiceVatDTO vatDTO) {
         invoiceRepository.changeVatType(vatDTO);
     }
+
+    public List<InvoiceVatDTO> getVatList() {
+        return invoiceRepository.getVatList();
+    }
 }

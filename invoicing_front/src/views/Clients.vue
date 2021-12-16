@@ -34,10 +34,8 @@
         <th v-on:click="orderBy('e_mail')">E-MAIL</th>
         <th v-on:click="orderBy('phone_nr')">PHONE</th>
         <th v-on:click="orderBy('contact_person')">CONTACT PERSON</th>
-
-
-
       </tr>
+
       <tr v-for="client in clients">
         <td>{{ client.id }}</td>
         <td>{{ client.clientName }}</td>

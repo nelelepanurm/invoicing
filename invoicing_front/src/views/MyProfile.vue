@@ -149,6 +149,8 @@
 
 <script>
 import router from "@/router";
+import App from "@/App";
+
 export default {
   data: function () {
     return {
@@ -160,9 +162,8 @@ export default {
     registerCompany: function () {
       this.$http.post("api/public/registercompany/", this.company)
       .then (response => {
-        this.newCompany = response.data
         alert ("Company registered")
-        router.push({name: 'App'})
+        location.reload()
       })
     },
   }

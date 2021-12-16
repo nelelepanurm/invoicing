@@ -42,4 +42,11 @@ public class InvoiceController {
     public void changeVat(@RequestBody InvoiceVatDTO vatDTO) {
         invoiceService.changeVatType(vatDTO);
     }
+
+    @GetMapping("api/vatlist/")
+    public List<InvoiceVatDTO> getVatList (){
+        List<InvoiceVatDTO> list = invoiceService.getVatList();
+        return list;
+
+    }
 }
