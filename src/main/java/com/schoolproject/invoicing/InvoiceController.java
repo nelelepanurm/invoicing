@@ -12,11 +12,12 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
 
-    @GetMapping("api/invoicing/")
+    @GetMapping("api/invoicing")
     public List<InvoiceDTO> getAllInvoices(){
-        List<InvoiceDTO> list = invoiceService.getAllInvoices();
-        return list;
+       return invoiceService.getAllInvoices();
     }
+
+
 
     @GetMapping("api/invoicing/view/{invoiceNr}")
     public InvoiceDTO viewInvoice(@PathVariable("invoiceNr") String invoiceNr){

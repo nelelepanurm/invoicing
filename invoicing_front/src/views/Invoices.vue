@@ -14,25 +14,25 @@
           <v-text-field
               label="search"
               placeholder="Placeholder"
+              @keyup="search=$event.target.value; getAllInvoices()"
               solo>
           </v-text-field>
         </v-col>
       </v-row>
 
-      <button> SEND TO EMAIL button needed when invoice is opened</button>
     </div>
     <br>
-    <table border="1">
+    <v-simple-table class="pa-10">
       <tr>
-        <th><a v-on:click="orderBy('client_name')">CLIENT</a></th>
-        <th v-on:click="orderBy('invoice_number')">INVOICE NO</th>
-        <th v-on:click="orderBy('total_sum')">SUM WITH VAT</th>
-        <th v-on:click="orderBy('invoice_date')">INVOICE DATE</th>
-        <th v-on:click="orderBy('payment_due_date')">DUE DATE</th>
+        <th class="text-left" v-on:click="orderBy('client_name')">CLIENT</th>
+        <th class="text-left" v-on:click="orderBy('invoice_number')">INVOICE NO</th>
+        <th class="text-left" v-on:click="orderBy('total_sum')">SUM WITH VAT</th>
+        <th class="text-left" v-on:click="orderBy('invoice_date')">INVOICE DATE</th>
+        <th class="text-left" v-on:click="orderBy('payment_due_date')">DUE DATE</th>
       </tr>
       <tr v-for="invoice in invoices">
-        <td>{{ invoice.cliendId }}</td>
-        <td>{{ invoice.invoiceNumber }}</td>
+        <td>{{ invoice.clientId }}</td>
+        <td>{{ invoice.invoiceNr }}</td>
         <td>{{ invoice.totalSum }}</td>
         <td>{{ invoice.invoiceDate }}</td>
         <td>{{ invoice.paymentDueDate }}</td>
@@ -43,7 +43,7 @@
           <button v-on:click="remove(invoice.id, invoice.invoiceNr)">Remove</button>
         </td>
       </tr>
-    </table>
+    </v-simple-table>
 
   </div>
 </template>
@@ -53,16 +53,16 @@ import router from '../router';
 export default {
   data: function () {
     return {
-      invoice: {},
+      search: "",
       invoices: {}
 
     }
   },
   methods: {
     getAllInvoices: function () {
-      this.$http.get('api/invoicing/')
+      this.$http.get('api/invoicing')
           .then(response => {
-            this.invoices = response.data
+            this.invoices = response.data;
           })
     },
     remove: function (id, invoiceNr) {
@@ -76,7 +76,10 @@ export default {
     },
     newInvoice: function () {
       router.push({name: 'CreateInvoice'})
-    },
+    }
+  },
+  mounted() {
+    this.getAllInvoices()
   }
 }
 

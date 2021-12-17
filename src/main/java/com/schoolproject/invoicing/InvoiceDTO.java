@@ -6,15 +6,15 @@ public class InvoiceDTO {
  private int id;
  private String invoiceNr;
  private String invoiceDate;
- private int paymentDueIn;
+ private Integer paymentDueIn;
  private String paymentDueDate;
- private int companyProfileId;
- private int clientId;
+ private Integer companyProfileId;
+ private Integer clientId;
  private String invoiceComment;
- private double delayPenalty;
- private double totalNetSum;
- private double totalVatSum;
- private double totalSum;
+ private Double delayPenalty;
+ private Double totalNetSum;
+ private Double totalVatSum;
+ private Double totalSum;
 
  private List<InvoiceRowDTO> itemRows;
 
@@ -42,11 +42,11 @@ public class InvoiceDTO {
   this.invoiceDate = invoiceDate;
  }
 
- public int getPaymentDueIn() {
+ public Integer getPaymentDueIn() {
   return paymentDueIn;
  }
 
- public void setPaymentDueIn(int paymentDueIn) {
+ public void setPaymentDueIn(Integer paymentDueIn) {
   this.paymentDueIn = paymentDueIn;
  }
 
@@ -58,19 +58,19 @@ public class InvoiceDTO {
   this.paymentDueDate = paymentDueDate;
  }
 
- public int getCompanyProfileId() {
+ public Integer getCompanyProfileId() {
   return companyProfileId;
  }
 
- public void setCompanyProfileId(int companyProfileId) {
+ public void setCompanyProfileId(Integer companyProfileId) {
   this.companyProfileId = companyProfileId;
  }
 
- public int getClientId() {
+ public Integer getClientId() {
   return clientId;
  }
 
- public void setClientId(int clientId) {
+ public void setClientId(Integer clientId) {
   this.clientId = clientId;
  }
 
@@ -82,35 +82,35 @@ public class InvoiceDTO {
   this.invoiceComment = invoiceComment;
  }
 
- public double getDelayPenalty() {
+ public Double getDelayPenalty() {
   return delayPenalty;
  }
 
- public void setDelayPenalty(double delayPenalty) {
+ public void setDelayPenalty(Double delayPenalty) {
   this.delayPenalty = delayPenalty;
  }
 
- public double getTotalNetSum() {
+ public Double getTotalNetSum() {
   return totalNetSum;
  }
 
- public void setTotalNetSum(double totalNetSum) {
+ public void setTotalNetSum(Double totalNetSum) {
   this.totalNetSum = totalNetSum;
  }
 
- public double getTotalVatSum() {
+ public Double getTotalVatSum() {
   return totalVatSum;
  }
 
- public void setTotalVatSum(double totalVatSum) {
+ public void setTotalVatSum(Double totalVatSum) {
   this.totalVatSum = totalVatSum;
  }
 
- public double getTotalSum() {
+ public Double getTotalSum() {
   return totalSum;
  }
 
- public void setTotalSum(double totalSum) {
+ public void setTotalSum(Double totalSum) {
   this.totalSum = totalSum;
  }
 

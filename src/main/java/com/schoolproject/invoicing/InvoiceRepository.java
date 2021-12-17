@@ -28,17 +28,17 @@ public class InvoiceRepository {
         public InvoiceDTO mapRow(ResultSet resultSet, int i) throws SQLException {
             InvoiceDTO result = new InvoiceDTO();
             result.setId(resultSet.getInt("id"));
-            result.setInvoiceNr(resultSet.getString("invoiceNr"));
-            result.setInvoiceDate(resultSet.getString("invoiceDate"));
-            result.setPaymentDueIn(resultSet.getInt("paymentDueIn"));
-            result.setPaymentDueDate(resultSet.getString("paymentDueDate"));
-            result.setCompanyProfileId(resultSet.getInt("companyProfileId"));
-            result.setClientId(resultSet.getInt("clientId"));
-            result.setInvoiceComment(resultSet.getString("invoiceComment"));
-            result.setDelayPenalty(resultSet.getDouble("delayPenalty"));
-            result.setTotalNetSum(resultSet.getDouble("totalNetSum"));
-            result.setTotalVatSum(resultSet.getDouble("totalVatSum"));
-            result.setTotalSum(resultSet.getDouble("totalSum"));
+            result.setInvoiceNr(resultSet.getString("invoice_number"));
+            result.setInvoiceDate(resultSet.getString("invoice_date"));
+            result.setPaymentDueIn(resultSet.getInt("payment_due_in"));
+            result.setPaymentDueDate(resultSet.getString("payment_due_date"));
+            result.setCompanyProfileId(resultSet.getInt("company_profile_id"));
+            result.setClientId(resultSet.getInt("client_id"));
+            result.setInvoiceComment(resultSet.getString("invoice_comment"));
+            result.setDelayPenalty(resultSet.getDouble("delay_penalty"));
+            result.setTotalNetSum(resultSet.getDouble("total_net_sum"));
+            result.setTotalVatSum(resultSet.getDouble("total_vat_sum"));
+            result.setTotalSum(resultSet.getDouble("total_sum"));
             return result;
         }
     }
@@ -48,15 +48,15 @@ public class InvoiceRepository {
         public InvoiceRowDTO mapRow(ResultSet resultSet, int i) throws SQLException {
             InvoiceRowDTO result = new InvoiceRowDTO();
             result.setId(resultSet.getInt("id"));
-            result.setInvoiceId(resultSet.getInt("invoiceId"));
+            result.setInvoiceId(resultSet.getInt("invoice_id"));
             result.setDescription(resultSet.getString("description"));
             result.setUnit(resultSet.getString("unit"));
-            result.setVatId(resultSet.getInt("vatId"));
-            result.setUnitPrice(resultSet.getDouble("unitPrice"));
+            result.setVatId(resultSet.getInt("vat_id"));
+            result.setUnitPrice(resultSet.getDouble("unit_price"));
             result.setQuantity(resultSet.getDouble("quantity"));
-            result.setNetSum(resultSet.getDouble("netSum"));
-            result.setVatAmount(resultSet.getDouble("vatAmount"));
-            result.setLineSum(resultSet.getDouble("lineSum"));
+            result.setNetSum(resultSet.getDouble("net_sum"));
+            result.setVatAmount(resultSet.getDouble("vat_amount"));
+            result.setLineSum(resultSet.getDouble("line_sum"));
             return result;
         }
     }
@@ -106,11 +106,13 @@ public class InvoiceRepository {
     }
 
     public List<InvoiceDTO> getAllInvoices() {
-        String sql = "SELECT * FROM invoice WHERE invoice_number = :invoiceNr)";
+        String sql = "SELECT * FROM invoice";
         Map<String, Object> paramMap = new HashMap<>();
         List<InvoiceDTO> invoicesList = jdbcTemplate.query(sql, paramMap, new InvoiceRowMapper());
         return invoicesList;
+
     }
+
 
     public InvoiceDTO viewInvoice(String invoiceNr) {
         String sql = "SELECT * FROM invoice WHERE invoice_number = :invoiceNr";
