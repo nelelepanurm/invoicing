@@ -62,7 +62,7 @@ public class InvoiceRepository {
     }
 
 
-    public Integer createInvoice(String invoiceNr, String invoiceDate, Integer paymentDueIn,
+    public Integer createInvoice(String invoiceNr, String invoiceDate, int paymentDueIn,
                                  String paymentDueDate, int companyProfileId, int clientId,
                                  String invoiceComment, double delayPenalty, double totalNetSum,
                                  double totalVatSum, double totalSum) {
@@ -88,16 +88,15 @@ public class InvoiceRepository {
         return (Integer) keyHolder.getKeys().get("id");
     }
 
-    public void createInvoiceRow(int invoiceId, String description, String unit, int vatId,
-                                 double unitPrice, double quantity, double netSum, double vatAmount,
-                                 double lineSum) {
-        String sql = "INSERT INTO invoice_row (invoice_id, description, unit, vat_id, unit_price, quantity, net_sum, vat_amount, line_sum) " +
-                "VALUES ( :invoiceId, :description, :unit, :vatId, :unitPrice, :quantity, :netSum, :vatAmount, :lineSum)";
+    public void createInvoiceRow(Integer invoiceId, String description, String unit, Integer vatId,
+                                 Double unitPrice, Double quantity, Double netSum, Double vatAmount,
+                                 Double lineSum) {
+        String sql = "INSERT INTO invoice_row (invoice_id, description, unit, unit_price, quantity, net_sum, vat_amount, line_sum) " +
+                "VALUES ( :invoiceId, :description, :unit, :unitPrice, :quantity, :netSum, :vatAmount, :lineSum)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("invoiceId", invoiceId);
         paramMap.put("description", description);
         paramMap.put("unit", unit);
-        paramMap.put("vatId", vatId);
         paramMap.put("unitPrice", unitPrice);
         paramMap.put("quantity", quantity);
         paramMap.put("netSum", netSum);
@@ -119,7 +118,7 @@ public class InvoiceRepository {
         paramMap.put("invoiceNr", invoiceNr);
         List<InvoiceDTO> result = jdbcTemplate.query(sql, paramMap, new InvoiceRowMapper());
         InvoiceDTO invoiceDTO = result.get(0);
-        invoiceDTO.setInvoiceRows(collectRows(invoiceDTO.getId()));
+        invoiceDTO.setItemRows(collectRows(invoiceDTO.getId()));
         return invoiceDTO;
     }
 

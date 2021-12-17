@@ -59,12 +59,12 @@
       </v-col>
     </v-row>
 
-    <div v-for="(itemRows,i) in itemRows" :key="i">
+    <div v-for="(itemRow, i) in invoice.itemRows" :key="i">
       <v-row align="center">
         <v-col cols="12" sm="5" md="5">
           <v-text-field
               label="Description"
-              v-model="item[i]"
+              v-model="itemRow.description"
               placeholder="Item"
               dense
           ></v-text-field>
@@ -72,7 +72,7 @@
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Unit"
-              v-model="unit[i]"
+              v-model="itemRow.unit"
               placeholder="Unit"
               dense
           ></v-text-field>
@@ -81,39 +81,39 @@
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Qty"
-              v-model="quantity[i]"
+              v-model.number="itemRow.quantity"
               placeholder="Qty"
-              @change="calculateRowAmounts(i)"
+              @change="calculateRowAmounts(itemRow)"
               dense
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Price"
-              v-model="unitPrice[i]"
-              @change="calculateRowAmounts(i)"
+              v-model.number="itemRow.unitPrice"
+              @change="calculateRowAmounts(itemRow)"
               placeholder="Price"
               dense
           ></v-text-field>
         </v-col>
 
         <v-col cols="12" sm="1" md="1">
-
           <v-select
               :items="vatList"
+              v-model="itemRow.vatValue"
               item-text="vatPercent"
-              item-value="id"
+              item-value="vatPercent"
               label="vat"
               dense
               outlined
-              @change="getVatList($event)"
+              @change="calculateRowAmounts(itemRow)"
           ></v-select>
         </v-col>
 
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="VAT Sum"
-              v-model="vatSum[i]"
+              v-model="itemRow.vatSum"
               disabled
               dense
           ></v-text-field>
@@ -121,7 +121,7 @@
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Total"
-              v-model="rowtotal[i]"
+              v-model="itemRow.total"
               disabled
               dense
           ></v-text-field>
@@ -140,13 +140,13 @@
 
       <div class="text--primary font-weight-bold">
         <span class="float-left mr-4">Net Total EUR:</span>
-        <span class="float-right">{{ totalNetSum }}</span>
+        <span class="float-right">{{ invoice.totalNetSum }}</span>
         <br/>
         <span class="float-left mr-4">VAT:</span>
-        <span class="float-right">{{ totalVatSum }}</span>
+        <span class="float-right">{{ invoice.totalVatSum }}</span>
         <br/>
         <span class="float-left mr-4">Grand Total EUR:</span>
-        <span class="float-right">{{ totalSum }}</span>
+        <span class="float-right">{{ invoice.totalSum }}</span>
         <br/>
         <br/>
       </div>
@@ -169,12 +169,9 @@ import router from "@/router";
 export default {
 
   data: () => ({
-    itemRows: [],
     item: [],
-    unitPrice: [],
     unit: [],
     quantity: [],
-    rowtotal: [],
     vatCode: [],
     vatSum: [],
     clientList: [],
@@ -184,12 +181,14 @@ export default {
     country: "",
     phoneNr: "",
     eMail: "",
-    invoice: {},
+    invoice: {
+      itemRows: []
+    },
     company: {},
     vatList: [],
+    vatValue: [],
     totalNetSum: 0,
     totalVatSum: 0,
-    totalSum: 0,
     client: {}
 
 
@@ -197,35 +196,23 @@ export default {
 
   methods: {
     addItem() {
-      this.itemRows.push({
-        item: "",
-        unitPrice: 0,
-        quantity: 0,
-        rowtotal: 0,
-        vatCode: "",
-        vatSum: 0,
-        unit: "",
-        theCompany: []
-      });
+      this.invoice.itemRows.push({});
     },
     calcTotal() {
-      if (this.rowtotal.length == 0) {
-        this.totalSum = 0;
-        this.totalVatSum = 0;
-        this.totalNetSum = 0;
-        return;
-      }
+        this.invoice.totalSum = 0;
+        this.invoice.totalVatSum = 0;
+        this.invoice.totalNetSum = 0;
 
-      let i = 0;
-      for (i = 0; i < this.rowtotal.length; i++) {
-        this.totalNetSum = this.totalNetSum + this.quantity[i] * this.unitPrice[i];
-        this.totalSum = this.totalSum + this.rowtotal[i];
-        this.totalVatSum = this.totalVatSum + this.vatSum[i];
+      for (let i = 0; i < this.invoice.itemRows.length; i++) {
+        let invoiceRow = this.invoice.itemRows[i];
+        this.invoice.totalNetSum = invoiceRow.quantity * invoiceRow.unitPrice;
+        this.invoice.totalSum = this.invoice.totalSum + invoiceRow.total;
+        this.invoice.totalVatSum = this.invoice.totalVatSum + invoiceRow.vatSum;
       }
     },
 
     removeItem(index) {
-      this.itemRows.splice(index, 1);
+      this.invoice.itemRows.splice(index, 1);
       this.calcTotal();
     },
     getCompany: function () {
@@ -236,13 +223,9 @@ export default {
           })
     },
     saveInvoice: function () {
-      this.invoice.totalNetSum = this.totalNetSum
-      this.invoice.totalVatSum = this.totalVatSum
-      this.invoice.totalSum = this.totalSum
       this.$http.post("api/invoicing/saveinvoice", this.invoice)
       .then(response => {
         alert ("saved")
-        router.push({name: 'Invoices'})
       })
     },
     getClientList: function () {
@@ -265,15 +248,14 @@ export default {
             this.vatList = response.data;
           })
     },
-    calculateRowAmounts: function (i) {
-      console.log(this.unitPrice[i]);
-      console.log(this.quantity[i]);
-
-      let price = this.unitPrice[i] != undefined ? this.unitPrice[i] : 0;
-      let vat = this.vatList[i].vatPercent != undefined ? this.vatList[i].vatPercent : 0;
-      let qty = this.quantity[i] != undefined ? this.quantity[i] : 0;
-      this.vatSum[i] = price * qty * vat/100.0;
-      this.rowtotal[i] = price * qty + this.vatSum[i];
+    calculateRowAmounts: function (invoiceRow) {
+      console.log(JSON.stringify(invoiceRow))
+      let price = invoiceRow.unitPrice != undefined ? invoiceRow.unitPrice : 0;
+      let vat = invoiceRow.vatValue != undefined ? invoiceRow.vatValue : 0;
+      let qty = invoiceRow.quantity != undefined ? invoiceRow.quantity : 0;
+      console.log(vat)
+      invoiceRow.vatSum = (price * qty * vat/100.0);
+      invoiceRow.total = (price * qty + invoiceRow.vatSum);
       this.calcTotal();
 
     }

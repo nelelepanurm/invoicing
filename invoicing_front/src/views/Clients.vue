@@ -19,11 +19,7 @@
           </v-text-field>
         </v-col>
       </v-row>
-
-
     </div>
-
-
     <table>
       <tr>
         <th v-on:click="orderBy('id')">ID</th>
