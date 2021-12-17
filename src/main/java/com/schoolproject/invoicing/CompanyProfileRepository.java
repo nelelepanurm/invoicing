@@ -55,12 +55,10 @@ public class CompanyProfileRepository {
 
     }
 
-    public int changeCompany(Integer id, @RequestBody CompanyProfileDTO companyProfile) {
-        String sql = "UPDATE company_profile SET user_name = :userName,password = :password,e_mail = :eMail,phone_nr = :phoneNr,address = :address,postal_code = :postalCode,country = :country,registration_code = :regNr,vat_code = :vatCode, bank_name1 = :bankName1,iban1 = :iban1,swift1 = :swift1,bank_name2 = :bankName2,iban2 = :iban2,swift2 = :swift2,bank_name3 = :bankName3,iban3 = :iban3,swift3 = :swift3,email_text = :emailText,payment_deadline = :paymentDeadline,delay_penalty = :delayPenalty,unit = :unit,logo_fail= :logoFail,company_name = :companyName WHERE id = :id";
+    public int changeCompany(Integer id, CompanyProfileDTO companyProfile) {
+        String sql = "UPDATE company_profile SET e_mail = :eMail,phone_nr = :phoneNr,address = :address,postal_code = :postalCode,country = :country,registration_code = :regNr,vat_code = :vatCode, bank_name1 = :bankName1,iban1 = :iban1,swift1 = :swift1,bank_name2 = :bankName2,iban2 = :iban2,swift2 = :swift2,bank_name3 = :bankName3,iban3 = :iban3,swift3 = :swift3,email_text = :emailText,payment_deadline = :paymentDeadline,delay_penalty = :delayPenalty,unit = :unit,logo_fail= :logoFail,company_name = :companyName WHERE newuser_id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
-        paramMap.put("userName", companyProfile.getUserName());
-        paramMap.put("password", companyProfile.getPassword());
         paramMap.put("eMail", companyProfile.geteMail());
         paramMap.put("phoneNr", companyProfile.getPhoneNr());
         paramMap.put("address", companyProfile.getAddress());

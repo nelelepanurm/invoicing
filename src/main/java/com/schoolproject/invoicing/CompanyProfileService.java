@@ -61,8 +61,9 @@ public class CompanyProfileService {
 
     }
 
-    public String changeCompany(Integer id, CompanyProfileDTO companyProfile) {
-        companyProfileRepository.changeCompany(id, companyProfile);
+    public String changeCompany(String userName, CompanyProfileDTO companyProfile) {
+        UserDTO user = userRepository.findUserByName(userName);
+        companyProfileRepository.changeCompany(user.getId(), companyProfile);
         return "Company information is updated";
     }
 
