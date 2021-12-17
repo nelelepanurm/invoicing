@@ -10,6 +10,8 @@ public class InvoiceService {
 
     @Autowired
     private InvoiceRepository invoiceRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
 
     public void newInvoiceRow(int invoiceId, String description, String unit, int vatId,
@@ -33,13 +35,46 @@ public class InvoiceService {
 
     public String changeInvoice(InvoiceDTO invoice) {
         invoiceRepository.changeInvoice(invoice);
-        for (InvoiceRowDTO row : invoice.getInvoiceRows()) {
+        for (InvoiceRowDTO row : invoice.getItemRows()) {
             invoiceRepository.changeInvoiceRow(row);
         }
         return "Invoice changed";
     }
 
     public void saveInvoice(InvoiceDTO invoiceDTO) {
+        if (invoiceDTO.getId() == 0) {
+            int id = invoiceRepository.createInvoice(invoiceDTO.getInvoiceNr(), invoiceDTO.getInvoiceDate(), invoiceDTO.getPaymentDueIn(),
+                    invoiceDTO.getPaymentDueDate(), invoiceDTO.getCompanyProfileId(), invoiceDTO.getClientId(),
+                    invoiceDTO.getInvoiceComment(), invoiceDTO.getDelayPenalty(), invoiceDTO.getTotalNetSum(),
+                    invoiceDTO.getTotalVatSum(), invoiceDTO.getTotalSum());
+            for (InvoiceRowDTO invoiceRow : invoiceDTO.getItemRows()) {
+                invoiceRepository.createInvoiceRow(id, invoiceRow.getDescription(), invoiceRow.getUnit(),
+                        invoiceRow.getVatId(), invoiceRow.getUnitPrice(), invoiceRow.getQuantity(), invoiceRow.getNetSum(),
+                        invoiceRow.getVatAmount(), invoiceRow.getLineSum());
+            }
+        } else {
+            changeInvoice(invoiceDTO);
+        }
+    }
+
+    public void createVatType(String vatDesc, double vatPercent) {
+        invoiceRepository.createVatType(vatDesc, vatPercent);
+    }
+
+    public void changeVatType(InvoiceVatDTO vatDTO) {
+        invoiceRepository.changeVatType(vatDTO);
+    }
+
+    public List<InvoiceVatDTO> getVatList() {
+        return invoiceRepository.getVatList();
+    }
+
+    public InvoiceVatDTO getVatById(Integer id) {
+        return invoiceRepository.getVatById(id);
+    }
+}
+
+/*    public void saveInvoice(InvoiceDTO invoiceDTO) {
         if (invoiceDTO.getId() == 0) {
             int id = invoiceRepository.createInvoice(invoiceDTO.getInvoiceNr(), invoiceDTO.getInvoiceDate(), invoiceDTO.getPaymentDueIn(),
                     invoiceDTO.getPaymentDueDate(), invoiceDTO.getCompanyProfileId(), invoiceDTO.getClientId(),
@@ -53,19 +88,4 @@ public class InvoiceService {
         } else {
             changeInvoice(invoiceDTO);
         }
-    }
-
-    public void createVatType (String vatDesc, double vatPercent) {
-        invoiceRepository.createVatType(vatDesc, vatPercent);
-    }
-    public void changeVatType (InvoiceVatDTO vatDTO) {
-        invoiceRepository.changeVatType(vatDTO);
-    }
-
-    public List<InvoiceVatDTO> getVatList() {
-        return invoiceRepository.getVatList();
-    }
-    public InvoiceVatDTO getVatById(Integer id) {
-        return invoiceRepository.getVatById(id);
-    }
-}
+    }*/

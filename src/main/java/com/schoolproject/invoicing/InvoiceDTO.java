@@ -16,7 +16,7 @@ public class InvoiceDTO {
  private double totalVatSum;
  private double totalSum;
 
- private List<InvoiceRowDTO> invoiceRows;
+ private List<InvoiceRowDTO> itemRows;
 
  public int getId() {
   return id;
@@ -114,11 +114,11 @@ public class InvoiceDTO {
   this.totalSum = totalSum;
  }
 
- public List<InvoiceRowDTO> getInvoiceRows() {
-  return invoiceRows;
+ public List<InvoiceRowDTO> getItemRows() {
+  return itemRows;
  }
 
- public void setInvoiceRows(List<InvoiceRowDTO> invoiceRows) {
-  this.invoiceRows = invoiceRows;
+ public void setItemRows(List<InvoiceRowDTO> itemRows) {
+  this.itemRows = itemRows;
  }
 }
