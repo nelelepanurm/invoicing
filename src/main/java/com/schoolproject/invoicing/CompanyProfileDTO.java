@@ -25,6 +25,7 @@ public class CompanyProfileDTO {
     private String unit;
     private String logoFail;
     private String companyName;
+    private Integer id;
 
     public String getUserName() {
         return userName;
@@ -216,5 +217,13 @@ public class CompanyProfileDTO {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

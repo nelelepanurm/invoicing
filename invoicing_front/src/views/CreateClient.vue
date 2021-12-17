@@ -26,14 +26,8 @@ import router from "../router";
 export default {
   data: function () {
     return {
-
-
       client: {},
       newClient:{},
-
-
-
-
     }
   },
   methods: {

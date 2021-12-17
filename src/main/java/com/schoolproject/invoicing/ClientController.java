@@ -46,9 +46,13 @@ public class ClientController {
 
 
     @GetMapping("api/client/getclient")
-    public List<ClientDto> getClientList (@RequestParam("search") String search){
+    public List<ClientDto> getClientList(@RequestParam("search") String search) {
         return clientService.getClientList(search);
+    }
 
+    @GetMapping("api/client/getallclients")
+    public List<ClientDto> getAllClients() {
+        return clientService.getClientList(null);
     }
 
     @GetMapping("api/getclient/{id}")
