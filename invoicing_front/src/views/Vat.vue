@@ -1,5 +1,5 @@
 <template>
-  <div className="home pa-10">
+  <div class="home pa-10">
     <h1>VAT Codes</h1><br><br><br>
 
     <div>
@@ -8,39 +8,24 @@
           <v-btn v-on:click="createVat()">New Vat code</v-btn>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col sm="6" md="6">
-          <v-text-field
-              label="search"
-              placeholder="Placeholder"
-              solo>
-          </v-text-field>
-        </v-col>
-      </v-row>
     </div>
-    <table>
+    <v-simple-table class="pa-10">
+      <template v-slot:default >
       <tr>
-        <th v-on:click="orderBy('id')">ID</th>
-        <th v-on:click="orderBy('id')">Vat description</th>
-        <th v-on:click="orderBy('id')">Vat percent</th>
-
+        <th class="text-left" v-on:click="orderBy('id')">ID</th>
+        <th class="text-left" v-on:click="orderBy('id')">Vat description</th>
+        <th class="text-left" v-on:click="orderBy('id')">Vat percent</th>
       </tr>
-
-      <tr v-for="client in clients">
-        <td>{{ client.id }}</td>
-        <td>{{ client.vatDesc }}</td>
-        <td>{{ client.vatPercent }}</td>
-
+      <tr v-for="vatType in vatTypes">
+        <td>{{ vatType.id }}</td>
+        <td>{{ vatType.vatDesc }}</td>
+        <td>{{ vatType.vatPercent }}</td>
         <td>
-          <v-btn v-on:click="editVatType(client.id)">Edit</v-btn>
-        </td>
-        <td>
-          <v-btn v-on:click="deleteClient(client.id,client.clientName)">Remove</v-btn>
+          <v-btn v-on:click="editVatType(vatType.id)">Edit</v-btn>
         </td>
       </tr>
-    </table>
-
-
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
@@ -52,40 +37,32 @@ import router from "../router";
 export default {
   data: function () {
     return {
-      clients: {},
+      vatTypes: {},
 
     }
   },
   methods: {
 
     createVat: function () {
-      router.push({name: "CreateClient"})
+      router.push({name: "CreateVat"})
     },
 
     getVatList: function () {
-      this.$http.get('api/client/')
+      this.$http.get('api/vatlist/')
           .then(response => {
-            this.clients = response.data;
+            this.vatTypes = response.data;
           })
     },
     editVatType: function (id) {
       console.log(id)
-      router.push({name: 'EditClient', params: {id: id}})
+      router.push({name: 'EditVat', params: {id: id}})
     },
-    deleteClient: function (id, clientName) {
-      if (confirm('Are you sure you want to delete client?')) {
-        this.$http.delete("api/client/delete/" + id)
-        alert(clientName + ' is now deleted');
-        this.getClientList()
-      } else {
-        alert('Client not deleted');
-      }
-    }
+
 
 
   },
   mounted() {
-    this.getClientList()
+    this.getVatList()
   }
 }
 

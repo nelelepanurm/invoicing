@@ -23,21 +23,21 @@
             <v-select
                 :items="clientList"
                 item-text="clientName"
-                item-value="id"
                 label="search client"
                 dense
                 outlined
-                @change="refreshClientData($event)"
             ></v-select>
+            <v-btn @click="newClient()">NEW CLIENT</v-btn>
           </v-col>
-          <input disabled v-model:placeholder="client.clientName"><br>
-          <input disabled v-model:placeholder="client.address"><br>
-          <input disabled v-model:placeholder="client.postCode"><br>
-          <input disabled v-model:placeholder="client.country"><br>
-          <input disabled v-model:placeholder="client.phoneNr"><br>
-          <input disabled v-model:placeholder="client.eMail"><br>
+          <input disabled v-model:placeholder="clientList.clientName"><br>
+          <input disabled v-model:placeholder="clientList.address"><br>
+          <input disabled v-model:placeholder="clientList.postCode"><br>
+          <input disabled v-model:placeholder="clientList.country"><br>
+          <input disabled v-model:placeholder="clientList.phoneNr"><br>
+          <input disabled v-model:placeholder="clientList.eMail"><br>
         </p>
       </v-col>
+
       <v-col cols="12" sm="6">
         <h2 class="grey py-1 mt-9 pl-2 mr-10">
           Invoice No
@@ -47,28 +47,60 @@
           <table>
             <tr>
               <td> Invoice Date:</td>
-              <td><input type="date" v-model="invoice.invoiceDate"></td>
+              <td><input type="date" v-model="invoiceDate"></td>
               <br>
             </tr>
             <tr>
               <td>Payment due:</td>
-              <td><input type="date" v-model="invoice.invoiceDueDate"></td>
+              <td><input type="date" v-model="invoiceDueDate"></td>
             </tr>
           </table>
         </v-flex>
       </v-col>
+
     </v-row>
 
     <div v-for="(itemRows,i) in itemRows" :key="i">
       <v-row align="center">
+
         <v-col cols="12" sm="5" md="5">
           <v-text-field
               label="Description"
               v-model="item[i]"
               placeholder="Item"
+
+              dense
+          ></v-text-field>
+
+        </v-col>
+
+        <v-col cols="12" sm="1" md="1">
+          <v-text-field
+              label="Price"
+              v-model="price[i]"
+              placeholder="Price"
               dense
           ></v-text-field>
         </v-col>
+
+        <v-col cols="12" sm="1" md="1">
+          <v-text-field
+              label="VAT Code"
+              v-model="vatCode[i]"
+              placeholder="VAT Code"
+              dense
+          ></v-text-field>
+        </v-col>
+
+        <v-col cols="12" sm="1" md="1">
+          <v-text-field
+              label="VAT Sum"
+              v-model="vatSum[i]"
+              placeholder="VAT Sum"
+              dense
+          ></v-text-field>
+        </v-col>
+
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Unit"
@@ -81,48 +113,18 @@
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Qty"
-              v-model="quantity[i]"
+              v-model="qty[i]"
               placeholder="Qty"
-              @change="calculateRowAmounts(i)"
-              dense
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="1" md="1">
-          <v-text-field
-              label="Price"
-              v-model="unitPrice[i]"
-              @change="calculateRowAmounts(i)"
-              placeholder="Price"
+              @change="calcTotal(i)"
               dense
           ></v-text-field>
         </v-col>
 
-        <v-col cols="12" sm="1" md="1">
-
-          <v-select
-              :items="vatList"
-              item-text="vatPercent"
-              item-value="id"
-              label="vat"
-              dense
-              outlined
-              @change="getVatList($event)"
-          ></v-select>
-        </v-col>
-
-        <v-col cols="12" sm="1" md="1">
-          <v-text-field
-              label="VAT Sum"
-              v-model="vatSum[i]"
-              disabled
-              dense
-          ></v-text-field>
-        </v-col>
         <v-col cols="12" sm="1" md="1">
           <v-text-field
               label="Total"
-              v-model="rowtotal[i]"
-              disabled
+              v-model="total[i]"
+              placeholder="Total"
               dense
           ></v-text-field>
         </v-col>
@@ -140,13 +142,16 @@
 
       <div class="text--primary font-weight-bold">
         <span class="float-left mr-4">Net Total EUR:</span>
-        <span class="float-right">{{ totalNetSum }}</span>
+        <span class="float-right">1000</span>
+        <br/>
+        <span class="float-left mr-4">VAT Rate:</span>
+        <span class="float-right">18%</span>
         <br/>
         <span class="float-left mr-4">VAT:</span>
-        <span class="float-right">{{ totalVatSum }}</span>
+        <span class="float-right">18</span>
         <br/>
         <span class="float-left mr-4">Grand Total EUR:</span>
-        <span class="float-right">{{ totalSum }}</span>
+        <span class="float-right">{{ gtotal }}</span>
         <br/>
         <br/>
       </div>
@@ -164,34 +169,32 @@
 
 <script>
 
-import router from "@/router";
-
 export default {
 
   data: () => ({
     itemRows: [],
     item: [],
-    unitPrice: [],
-    unit: [],
-    quantity: [],
-    rowtotal: [],
+    price: [],
+    qty: [],
+    total: [],
     vatCode: [],
     vatSum: [],
+    gtotal: "",
+    unit: "",
     clientList: [],
-    companyProfileId: {},
+    invoiceNr: {},
+    companyName: {},
     address: "",
     postCode: "",
     country: "",
     phoneNr: "",
     eMail: "",
+    invoiceDate: "",
+    invoiceDueDate: "",
+    clientName: {},
     invoice: {},
     company: {},
-    vatList: [],
-    totalNetSum: 0,
-    totalVatSum: 0,
-    totalSum: 0,
-    client: {}
-
+    client: {},
 
   }),
 
@@ -199,91 +202,54 @@ export default {
     addItem() {
       this.itemRows.push({
         item: "",
-        unitPrice: 0,
-        quantity: 0,
-        rowtotal: 0,
+        price: "",
+        qty: "",
+        total: "",
         vatCode: "",
-        vatSum: 0,
+        vatSum: "",
         unit: "",
         theCompany: []
       });
     },
-    calcTotal() {
-      if (this.rowtotal.length == 0) {
-        this.totalSum = 0;
-        this.totalVatSum = 0;
-        this.totalNetSum = 0;
-        return;
-      }
+    calcTotal(i) {
+      let price = this.price[i];
+      let qty = this.qty[i];
+      let total = price * qty;
+      this.total[i] = parseInt(total);
+      this.gtotal[i] = parseInt(total);
+      console.log("Data " + total);
 
-      let i = 0;
-      for (i = 0; i < this.rowtotal.length; i++) {
-        this.totalNetSum = this.totalNetSum + this.quantity[i] * this.unitPrice[i];
-        this.totalSum = this.totalSum + this.rowtotal[i];
-        this.totalVatSum = this.totalVatSum + this.vatSum[i];
-      }
     },
-
     removeItem(index) {
       this.itemRows.splice(index, 1);
-      this.calcTotal();
     },
     getCompany: function () {
       this.$http.get('api/getcompany')
           .then(response => {
             this.company = response.data
-            this.invoice.companyProfileId = this.company.id
           })
     },
     saveInvoice: function () {
-      this.invoice.totalNetSum = this.totalNetSum
-      this.invoice.totalVatSum = this.totalVatSum
-      this.invoice.totalSum = this.totalSum
       this.$http.post("api/invoicing/saveinvoice", this.invoice)
-      .then(response => {
-        alert ("saved")
-        router.push({name: 'Invoices'})
-      })
     },
+    // newClient: function () {
+    // router.push({name: 'CreateClient'})
+    // }
     getClientList: function () {
-      this.$http.get('api/client/getallclients')
+      this.$http.get('api/client/')
           .then(response => {
             this.clientList = response.data;
           })
-    },
-    refreshClientData: function (event) {
-      console.log(event)
-      this.$http.get('api/getclient/' + event)
-          .then(response => {
-            this.invoice.clientId = response.data.id
-            this.client = response.data
-          })
-    },
-    getVatList: function () {
-      this.$http.get('api/vatlist')
-          .then(response => {
-            this.vatList = response.data;
-          })
-    },
-    calculateRowAmounts: function (i) {
-      console.log(this.unitPrice[i]);
-      console.log(this.quantity[i]);
-
-      let price = this.unitPrice[i] != undefined ? this.unitPrice[i] : 0;
-      let vat = this.vatList[i].vatPercent != undefined ? this.vatList[i].vatPercent : 0;
-      let qty = this.quantity[i] != undefined ? this.quantity[i] : 0;
-      this.vatSum[i] = price * qty * vat/100.0;
-      this.rowtotal[i] = price * qty + this.vatSum[i];
-      this.calcTotal();
-
     }
+
+
+
   },
   mounted() {
     this.addItem()
     let theCompany = this.getCompany()
     console.log(theCompany)
     this.getClientList()
-    this.getVatList()
   }
 }
 </script>

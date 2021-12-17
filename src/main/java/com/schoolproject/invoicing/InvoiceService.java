@@ -65,4 +65,7 @@ public class InvoiceService {
     public List<InvoiceVatDTO> getVatList() {
         return invoiceRepository.getVatList();
     }
+    public InvoiceVatDTO getVatById(Integer id) {
+        return invoiceRepository.getVatById(id);
+    }
 }

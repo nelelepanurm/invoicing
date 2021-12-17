@@ -79,13 +79,8 @@ public class ClientRepository {
             sql += " WHERE LOWER(client_name) LIKE :search OR LOWER(reg_nr) LIKE :search";
             paramMap.put("search", search + "%");
         }
-
         return jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(ClientDto.class));
-
-
     }
-
-
 
     public ClientDto getClientId(Integer id) {
         String sql = "SELECT * FROM client WHERE id = :id";

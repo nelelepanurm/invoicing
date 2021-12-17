@@ -187,18 +187,28 @@ public class InvoiceRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public void changeVatType (InvoiceVatDTO vatDTO) {
-        String sql = "UPDATE vat_type SET vat_desc = :vatDesc, vat_percent = :vatPercent";
+    public void changeVatType(InvoiceVatDTO vatDTO) {
+        String sql = "UPDATE vat_type SET vat_desc = :vatDesc, vat_percent = :vatPercent WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("vatDesc", vatDTO.getVatDesc());
         paramMap.put("vatPercent", vatDTO.getVatPercent());
+        paramMap.put("id", vatDTO.getId());
         jdbcTemplate.update(sql, paramMap);
     }
+
     public List<InvoiceVatDTO> getVatList() {
         String sql = "SELECT * FROM vat_type";
         Map<String, Object> paramMap = new HashMap<>();
-        List<InvoiceVatDTO> vatList = jdbcTemplate.query(sql,paramMap, new BeanPropertyRowMapper<>(InvoiceVatDTO.class));
+        List<InvoiceVatDTO> vatList = jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(InvoiceVatDTO.class));
         return vatList;
+    }
+
+    public InvoiceVatDTO getVatById(Integer id) {
+        String sql = "SELECT * FROM vat_type WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        InvoiceVatDTO result = jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(InvoiceVatDTO.class));
+        return result;
     }
 }
 

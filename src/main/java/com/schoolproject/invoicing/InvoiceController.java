@@ -43,10 +43,12 @@ public class InvoiceController {
         invoiceService.changeVatType(vatDTO);
     }
 
-    @GetMapping("api/vatlist/")
+    @GetMapping("api/vatlist")
     public List<InvoiceVatDTO> getVatList (){
-        List<InvoiceVatDTO> list = invoiceService.getVatList();
-        return list;
-
+        return invoiceService.getVatList();
+    }
+    @GetMapping("api/getvat/{id}")
+    public InvoiceVatDTO getVatById(@PathVariable("id") Integer id) {
+        return invoiceService.getVatById(id);
     }
 }

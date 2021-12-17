@@ -7,7 +7,10 @@ import MyProfile2 from '../views/MyProfile2'
 import Home2 from '../views/Home2'
 import Invoices from '../views/Invoices'
 import CreateInvoice from '../views/CreateInvoice'
+import EditInvoice from '../views/EditInvoice'
 import Vat from '../views/Vat'
+import EditVat from '../views/EditVat'
+import CreateVat from '../views/CreateVat'
 import CreateClient from '../views/CreateClient'
 import EditClient from '../views/EditClient'
 
@@ -50,9 +53,24 @@ const routes = [
     component: CreateInvoice
   },
   {
+    path: '/editInvoice/:id',
+    name: 'EditInvoice',
+    component: EditInvoice
+  },
+  {
     path: '/vat',
     name: 'Vat',
     component: Vat
+  },
+  {
+    path: '/editVat/:id',
+    name: 'EditVat',
+    component: EditVat
+  },
+  {
+    path: '/createVat/',
+    name: 'CreateVat',
+    component: CreateVat
   },
   {
   path: '/createClient',
