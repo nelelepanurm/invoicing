@@ -33,7 +33,7 @@ const routes = [
     component: MyProfile
   },
   {
-    path: '/myProfile2',
+    path: '/myProfile2/',
     name: 'MyProfile2',
     component: MyProfile2
   },

@@ -42,9 +42,10 @@ public class CompanyProfileController {
                 companyProfile.getCompanyName());
     }
 
-    @PutMapping("api/company/change/{id}")
-    public String changeCompany(@PathVariable("id") int id, @RequestBody CompanyProfileDTO companyProfile) {
-        return companyProfileService.changeCompany(id, companyProfile);
+    @PutMapping("api/company/change")
+    public String changeCompany(Principal principal, @RequestBody CompanyProfileDTO companyProfile) {
+        String loggedInUser = principal.getName();
+        return companyProfileService.changeCompany(loggedInUser, companyProfile);
     }
 
     @GetMapping("api/getcompany")
